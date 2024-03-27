@@ -50,4 +50,17 @@ describe('BasePair class', () => {
     expect(bp.includes(secondBase)).toBe(true);
     expect(bp.includes(new NucleobaseMock())).toBe(false);
   });
+
+  test('includesBoth method', () => {
+    let firstBase = new NucleobaseMock();
+    let secondBase = new NucleobaseMock();
+
+    let bp = new BasePair(firstBase, secondBase);
+
+    expect(bp.includesBoth(firstBase, secondBase)).toBe(true);
+    expect(bp.includesBoth(secondBase, firstBase)).toBe(true);
+
+    expect(bp.includesBoth(firstBase, new NucleobaseMock())).toBe(false);
+    expect(bp.includesBoth(new NucleobaseMock(), secondBase)).toBe(false);
+  });
 });

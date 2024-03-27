@@ -26,4 +26,11 @@ export class BasePair<Nucleobase> {
   includes(b: Nucleobase): boolean {
     return [this.firstBase, this.secondBase].includes(b);
   }
+
+  /**
+   * Returns true if both bases are in the base-pair and returns false otherwise.
+   */
+  includesBoth(b1: Nucleobase, b2: Nucleobase): boolean {
+    return this.includes(b1) && this.includes(b2);
+  }
 }
