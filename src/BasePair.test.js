@@ -28,4 +28,15 @@ describe('BasePair class', () => {
     let bp = new BasePair(new NucleobaseMock(), secondBase);
     expect(bp[1]).toBe(secondBase);
   });
+
+  test('iterating over a base-pair', () => {
+    let firstBase = new NucleobaseMock();
+    let secondBase = new NucleobaseMock();
+
+    let bp = new BasePair(firstBase, secondBase);
+
+    expect([...bp].length).toBe(2);
+    expect([...bp][0]).toBe(firstBase);
+    expect([...bp][1]).toBe(secondBase);
+  });
 });
