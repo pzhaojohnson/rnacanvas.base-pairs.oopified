@@ -17,4 +17,13 @@ export class BasePair<Nucleobase> {
   [Symbol.iterator]() {
     return [this.firstBase, this.secondBase].values();
   }
+
+  /**
+   * Returns true if the given base is one of the bases in the base-pair.
+   *
+   * Returns false otherwise.
+   */
+  includes(b: Nucleobase): boolean {
+    return [this.firstBase, this.secondBase].includes(b);
+  }
 }
