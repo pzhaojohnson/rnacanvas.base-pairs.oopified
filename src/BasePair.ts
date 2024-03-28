@@ -22,7 +22,7 @@ export class BasePair<Nucleobase> {
   }
 
   [Symbol.iterator]() {
-    return [this.firstBase, this.secondBase].values();
+    return [...this.bases].values();
   }
 
   /**
@@ -31,7 +31,7 @@ export class BasePair<Nucleobase> {
    * Returns false otherwise.
    */
   includes(b: Nucleobase): boolean {
-    return [this.firstBase, this.secondBase].includes(b);
+    return [...this.bases].includes(b);
   }
 
   /**
