@@ -14,6 +14,13 @@ export class BasePair<Nucleobase> {
     return this.secondBase;
   }
 
+  /**
+   * An iterable over the two bases in the base-pair (the first base then the second base).
+   */
+  get bases(): Iterable<Nucleobase> {
+    return [this.firstBase, this.secondBase];
+  }
+
   [Symbol.iterator]() {
     return [this.firstBase, this.secondBase].values();
   }
