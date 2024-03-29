@@ -34,4 +34,12 @@ export class Stem<Nucleobase> {
   get basePairs(): Iterable<BasePair<Nucleobase>> {
     return this._basePairs;
   }
+
+  /**
+   * The base-pair of the stem with the 5'-most upstream partner
+   * (and 3'-most downstream partner).
+   */
+  get bottomBasePair(): BasePair<Nucleobase> {
+    return this._basePairs[0];
+  }
 }
