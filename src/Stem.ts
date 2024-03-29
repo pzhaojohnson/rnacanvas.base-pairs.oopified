@@ -83,4 +83,14 @@ export class Stem<Nucleobase> {
     side3.reverse();
     return side3;
   }
+
+  /**
+   * The bases in the stem.
+   *
+   * Bases are returned in ascending order by sequence position in the parent structure
+   * (i.e., bottom base-pair upstream partner first, bottom base-pair downstream partner last).
+   */
+  get bases(): Iterable<Nucleobase> {
+    return [...this.side5, ...this.side3];
+  }
 }
