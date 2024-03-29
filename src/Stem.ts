@@ -42,4 +42,12 @@ export class Stem<Nucleobase> {
   get bottomBasePair(): BasePair<Nucleobase> {
     return this._basePairs[0];
   }
+
+  /**
+   * The base-pair of the stem with the 5'-least upstream partner
+   * (and 3'-least downstream partner).
+   */
+  get topBasePair(): BasePair<Nucleobase> {
+    return this._basePairs[this._basePairs.length - 1];
+  }
 }
