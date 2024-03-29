@@ -57,4 +57,15 @@ describe('Stem class', () => {
     expect(st.topBasePair.firstBase).toBe(basePairs[4][0]);
     expect(st.topBasePair.secondBase).toBe(basePairs[4][1]);
   });
+
+  test('side5 getter', () => {
+    let basePairs = createBasePairMocks(6);
+    let st = new Stem(basePairs);
+
+    expect([...st.side5].length).toBe(6);
+
+    [...st.side5].forEach((b, i) => {
+      expect(b).toBe(basePairs[i][0]);
+    });
+  });
 });

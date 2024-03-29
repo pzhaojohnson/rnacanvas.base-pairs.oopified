@@ -61,4 +61,14 @@ export class Stem<Nucleobase> {
   get topBasePair(): BasePair<Nucleobase> {
     return this._basePairs[this._basePairs.length - 1];
   }
+
+  /**
+   * The 5' side of the stem.
+   *
+   * Bases are returned in ascending order by sequence position in the parent structure
+   * (i.e., bottom base-pair upstream partner first, top base-pair upstream partner last).
+   */
+  get side5(): Iterable<Nucleobase> {
+    return this._basePairs.map(bp => bp.firstBase);
+  }
 }
