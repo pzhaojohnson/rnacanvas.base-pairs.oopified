@@ -13,7 +13,7 @@ export class Stem<Nucleobase> {
   /**
    * The base-pairs passed to this constructor are assumed to already be sorted
    * (i.e., with bottom base-pair first and top base-pair last,
-   * with base-pairs overall in ascending order by upstream parter position within the parent structure,
+   * with base-pairs overall in ascending order by upstream partner position within the parent structure,
    * with the upstream partner ordered before the downstream partner within individual base-pairs).
    *
    * Throws if the passed base-pairs array is empty.
