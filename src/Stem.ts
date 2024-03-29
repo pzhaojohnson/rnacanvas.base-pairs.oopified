@@ -35,6 +35,13 @@ export class Stem<Nucleobase> {
     return this._basePairs;
   }
 
+  /**
+   * The number of base-pairs in the stem.
+   */
+  get numBasePairs(): number {
+    return this._basePairs.length;
+  }
+
   [Symbol.iterator](): Iterator<BasePair<Nucleobase>> {
     return this._basePairs.values();
   }

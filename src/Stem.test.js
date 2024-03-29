@@ -25,6 +25,11 @@ describe('Stem class', () => {
     });
   });
 
+  test('numBasePairs getter', () => {
+    let st = new Stem(createBasePairMocks(182));
+    expect(st.numBasePairs).toBe(182);
+  });
+
   test('iterating over a stem', () => {
     let basePairs = createBasePairMocks(7);
     let st = new Stem(basePairs);
