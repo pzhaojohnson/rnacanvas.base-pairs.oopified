@@ -35,6 +35,10 @@ export class Stem<Nucleobase> {
     return this._basePairs;
   }
 
+  [Symbol.iterator](): Iterator<BasePair<Nucleobase>> {
+    return this._basePairs.values();
+  }
+
   /**
    * The base-pair of the stem with the 5'-most upstream partner
    * (and 3'-most downstream partner).
