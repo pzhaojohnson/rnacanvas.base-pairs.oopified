@@ -71,4 +71,16 @@ export class Stem<Nucleobase> {
   get side5(): Iterable<Nucleobase> {
     return this._basePairs.map(bp => bp.firstBase);
   }
+
+  /**
+   * The 3' side of the stem.
+   *
+   * Bases are returned in ascending order by sequence position in the parent structure
+   * (i.e., top base-pair downstream partner first, bottom base-pair downstream partner last).
+   */
+  get side3(): Iterable<Nucleobase> {
+    let side3 = this._basePairs.map(bp => bp.secondBase);
+    side3.reverse();
+    return side3;
+  }
 }
