@@ -85,6 +85,13 @@ export class Stem<Nucleobase> {
   }
 
   /**
+   * An alias for the 5' side of the stem.
+   */
+  get upstreamSide() {
+    return this.side5;
+  }
+
+  /**
    * The bases in the stem.
    *
    * Bases are returned in ascending order by sequence position in the parent structure
