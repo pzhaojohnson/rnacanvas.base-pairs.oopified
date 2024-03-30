@@ -116,4 +116,17 @@ export class Stem<Nucleobase> {
   contains(b: Nucleobase): boolean {
     return (new Set(this.bases)).has(b);
   }
+
+  /**
+   * Returns true if and only if all bases are present in base-pairs in the stem.
+   *
+   * Vacuously returns true for an empty array of bases.
+   *
+   * Using this method is more efficient than calling the `contains` method on each individual nucleobase.
+   */
+  containsAll(bs: Nucleobase[]): boolean {
+    let bases = new Set(this.bases);
+
+    return bs.every(b => bases.has(b));
+  }
 }

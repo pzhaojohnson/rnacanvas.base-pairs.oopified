@@ -128,4 +128,30 @@ describe('Stem class', () => {
 
     expect(st.contains(new NucleobaseMock())).toBe(false);
   });
+
+  test('containsAll method', () => {
+    let basePairs = createBasePairMocks(6);
+    let st = new Stem(basePairs);
+
+    let bs = basePairs.flat();
+
+    // contains all
+    expect(st.containsAll([bs[8], bs[7], bs[3], bs[2], bs[5], bs[1], bs[2]])).toBe(true);
+
+    // doesn't contain one
+    expect(st.containsAll([bs[3], bs[1], bs[5], {}, bs[7], bs[9]])).toBe(false);
+
+    // doesn't contain three
+    expect(st.containsAll([bs[2], bs[3], {}, bs[1], {}, {}, bs[0], bs[4]])).toBe(false);
+
+    // doesn't contain any
+    expect(st.containsAll([{}, {}, {}, {}])).toBe(false);
+
+    // vacuously returns true for an empty array of bases
+    expect(st.containsAll([])).toBe(true);
+
+    // one base
+    expect(st.containsAll([bs[3]])).toBe(true);
+    expect(st.containsAll([{}])).toBe(false);
+  });
 });
