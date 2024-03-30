@@ -116,4 +116,16 @@ describe('Stem class', () => {
       }
     });
   });
+
+  test('contains method', () => {
+    let basePairs = createBasePairMocks(5);
+    let st = new Stem(basePairs);
+
+    basePairs.forEach(bp => {
+      expect(st.contains(bp[0])).toBe(true);
+      expect(st.contains(bp[1])).toBe(true);
+    });
+
+    expect(st.contains(new NucleobaseMock())).toBe(false);
+  });
 });

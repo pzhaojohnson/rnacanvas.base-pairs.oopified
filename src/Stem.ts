@@ -107,4 +107,13 @@ export class Stem<Nucleobase> {
   get bases(): Iterable<Nucleobase> {
     return [...this.side5, ...this.side3];
   }
+
+  /**
+   * Returns true if the nucleobase is in one of the base-pairs of the stem.
+   *
+   * Returns false otherwise.
+   */
+  contains(b: Nucleobase): boolean {
+    return (new Set(this.bases)).has(b);
+  }
 }
