@@ -92,6 +92,13 @@ export class Stem<Nucleobase> {
   }
 
   /**
+   * An alias for the 3' side of the stem.
+   */
+  get downstreamSide() {
+    return this.side3;
+  }
+
+  /**
    * The bases in the stem.
    *
    * Bases are returned in ascending order by sequence position in the parent structure

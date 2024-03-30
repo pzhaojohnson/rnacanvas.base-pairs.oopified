@@ -91,6 +91,17 @@ describe('Stem class', () => {
     });
   });
 
+  test('downstreamSide getter', () => {
+    let basePairs = createBasePairMocks(7);
+    let st = new Stem(basePairs);
+
+    expect([...st.downstreamSide].length).toBe(7);
+
+    [...st.downstreamSide].forEach((b, i) => {
+      expect(b).toBe(basePairs[7 - i - 1][1]);
+    });
+  });
+
   test('bases getter', () => {
     let basePairs = createBasePairMocks(11);
     let st = new Stem(basePairs);
