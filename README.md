@@ -1,7 +1,7 @@
 # Installation
 
-With npm:
+With `npm`:
 
-'''
+```
 npm install @rnacanvas/base-pairs.oopified
-'''
+```
