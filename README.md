@@ -172,3 +172,30 @@ structure.positionOf(bases[6]); // 7
 
 structure.positionOf({}); // throws
 ```
+
+### `partnerOf()`
+
+Returns the partner base for the specified base.
+
+Throws if the specified base is unpaired
+(or not present in the structure).
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'1234567890'].map(() => ({}));
+
+var basePairs = [
+  [bases[2], bases[8]],
+  [bases[3], bases[7]],
+];
+
+var structure = new RadializableStructure(bases, basePairs);
+
+structure.partnerOf(bases[2]); // bases[8]
+structure.partnerOf(bases[7]); // bases[3]
+
+// the first base doesn't have a partner
+structure.partnerOf(bases[0]); // throws
+
+structure.partnerOf({}); // throws
+```
