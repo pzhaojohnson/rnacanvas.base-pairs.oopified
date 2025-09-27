@@ -19,6 +19,10 @@ export class RadializableStructure<Nucleobase> {
   get bases(): Iterable<Nucleobase> {
     return [...this.#bases];
   }
+
+  get basePairs(): Iterable<BasePair<Nucleobase>> {
+    return this.#basePairs.map(bp => bp.deepCopy());
+  }
 }
 
 type BasePairTuple<Nucleobase> = [Nucleobase, Nucleobase];
