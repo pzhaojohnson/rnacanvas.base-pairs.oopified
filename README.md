@@ -12,8 +12,7 @@ All exports of this package can be accessed as named imports.
 
 ```javascript
 // some example imports
-import { BasePair } from '@rnacanvas/base-pairs.oopified';
-import { Stem } from '@rnacanvas/base-pairs.oopified';
+import { BasePair, Stem } from '@rnacanvas/base-pairs.oopified';
 import { RadializableStructure } from '@rnacanvas/base-pairs.oopified';
 ```
 
@@ -44,6 +43,7 @@ var base1 = {};
 var base2 = {};
 
 var bp1 = new BasePair(base1, base2);
+
 var bp2 = bp1.deepCopy();
 
 bp1[0] === bp2[0]; // true
