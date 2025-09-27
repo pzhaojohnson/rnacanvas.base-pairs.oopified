@@ -23,7 +23,7 @@ A structure amenable to radializing layout drawing algorithms.
 Repeat base-pairs, conflicting base-pairs, self base-pairs and base-pairs creating pseudoknots
 are omitted from the structure at construction.
 
-Pseudoknots are omitted according to the incremental range heuristic ([Smit et al., 2008](https://pubmed.ncbi.nlm.nih.gov/18230758/)).
+Pseudoknots are omitted according to the incremental range heuristic (see [Smit et al., 2008](https://zeus.few.vu.nl/programs/k2nwww/static/method.html)).
 
 ```javascript
 // an array of nucleobase objects
@@ -54,4 +54,19 @@ basePairs.push([bases[3], bases[11]]);
 
 // will be equal to structure 1
 var structure2 = new RadializableStructure(bases, basePairs);
+```
+
+### `get bases()`
+
+All bases in the structure.
+
+The ordering of bases in this iterable is the ordering of bases in the structure.
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'123456'].map(() => ({}));
+
+var structure = new RadializableStructure(bases, []);
+
+[...structure.bases].length; // 6
 ```
