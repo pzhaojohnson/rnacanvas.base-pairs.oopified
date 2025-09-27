@@ -29,8 +29,7 @@ Pseudoknots are omitted according to the incremental range heuristic (see [Smit 
 // an array of nucleobase objects
 var bases = [...'1234567890123456'].map(() => ({}));
 
-// an array of base-pair tuples
-// (creating a stem)
+// an array of base-pair tuples (creating a stem)
 var basePairs = [
   [bases[0], bases[9]],
   [bases[1], bases[8]],
@@ -39,14 +38,14 @@ var basePairs = [
 
 var structure1 = new RadializableStructure(bases, basePairs);
 
-// repeat base-pair
+// a repeat base-pair
 basePairs.push([bases[0], bases[9]]);
 
-// conflicting base-pair
+// a conflicting base-pair
 // (the first base is already paired with the tenth base)
 basePairs.push([bases[0], bases[10]]);
 
-// self base-pair
+// a self base-pair
 basePairs.push([bases[5], bases[5]]);
 
 // a base-pair creating a pseudoknot
