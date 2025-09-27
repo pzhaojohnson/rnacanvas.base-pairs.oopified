@@ -40,4 +40,8 @@ export class BasePair<Nucleobase> {
   includesBoth(b1: Nucleobase, b2: Nucleobase): boolean {
     return this.includes(b1) && this.includes(b2);
   }
+
+  deepCopy(): BasePair<Nucleobase> {
+    return new BasePair(this.firstBase, this.secondBase);
+  }
 }

@@ -1,9 +1,5 @@
 import { BasePair } from './BasePair';
 
-class NucleobaseMock {
-  constructor() {}
-}
-
 describe('BasePair class', () => {
   test('accessing the first base of a base-pair', () => {
     let firstBase = new NucleobaseMock();
@@ -74,4 +70,24 @@ describe('BasePair class', () => {
     expect(bp.includesBoth(firstBase, new NucleobaseMock())).toBe(false);
     expect(bp.includesBoth(new NucleobaseMock(), secondBase)).toBe(false);
   });
+
+  test('`deepCopy()`', () => {
+    let b1 = new NucleobaseMock();
+    let b2 = new NucleobaseMock();
+
+    let bp1 = new BasePair(b1, b2);
+    let bp2 = bp1.deepCopy();
+
+    expect(bp2.firstBase).toBe(b1);
+    expect(bp2.secondBase).toBe(b2);
+
+    expect(bp2).not.toBe(bp1);
+  });
 });
+
+class NucleobaseMock {
+  /**
+   * Make each instance unique.
+   */
+  id = Math.random();
+}
