@@ -72,6 +72,8 @@ var basePairs = [
 
 var structure1 = new RadializableStructure(bases, basePairs);
 
+[...structure1.basePairs].length; // 3
+
 // a repeat base-pair
 basePairs.push([bases[0], bases[9]]);
 
@@ -87,6 +89,8 @@ basePairs.push([bases[3], bases[11]]);
 
 // will be equal to structure 1
 var structure2 = new RadializableStructure(bases, basePairs);
+
+[...structure2.basePairs].length; // 3
 ```
 
 ### `get bases()`
@@ -102,4 +106,29 @@ var bases = [...'123456'].map(() => ({}));
 var structure = new RadializableStructure(bases, []);
 
 [...structure.bases].length; // 6
+```
+
+### `get basePairs()`
+
+All base-pairs in the structure.
+
+(An iterable of base-pair objects.)
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'123456789'].map(() => ({}));
+
+var basePairs = [
+  [bases[0], bases[9]],
+  [bases[1], bases[8]],
+  [bases[2], bases[7]],
+];
+
+var structure = new RadializableStructure(bases, basePairs);
+
+[...structure.basePairs].length; // 3
+
+[...structure.basePairs][0]; // [bases[0], bases[9]]
+[...structure.basePairs][1]; // [bases[1], bases[8]]
+[...structure.basePairs][2]; // [bases[2], bases[7]]
 ```
