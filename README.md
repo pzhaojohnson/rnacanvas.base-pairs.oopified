@@ -132,3 +132,43 @@ var structure = new RadializableStructure(bases, basePairs);
 [...structure.basePairs][1]; // [bases[1], bases[8]]
 [...structure.basePairs][2]; // [bases[2], bases[7]]
 ```
+
+### `indexOf()`
+
+Returns the zero-based index of the specified base
+in the sequence of bases for the structure.
+
+Throws if the base is not in the structure.
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'1234567890'].map(() => ({}));
+
+var structure = new RadializableStructure(bases, []);
+
+structure.indexOf(bases[0]); // 0
+structure.indexOf(bases[2]); // 2
+structure.indexOf(bases[6]); // 6
+
+structure.indexOf({}); // throws
+```
+
+### `positionOf()`
+
+Returns the one-based position of the specified base
+in the sequence of bases for the structure.
+
+Throws if the base is not in the structure.
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'1234567890'].map(() => ({}));
+
+var structure = new RadializableStructure(bases, []);
+
+structure.positionOf(bases[0]); // 1
+structure.positionOf(bases[2]); // 3
+structure.positionOf(bases[6]); // 7
+
+structure.positionOf({}); // throws
+```
