@@ -1,6 +1,6 @@
 {
   "name": "@rnacanvas/base-pairs.oopified",
-  "version": "1.18.1",
+  "version": "1.19.0",
   "description": "Work with base-pairs in an object-oriented way",
   "repository": {
     "type": "git",
@@ -23,5 +23,8 @@
     "typescript": "^5.3.3",
     "webpack": "^5.89.0",
     "webpack-cli": "^6.0.1"
+  },
+  "dependencies": {
+    "@rnacanvas/base-pairs": "^2.9.0"
   }
 }
