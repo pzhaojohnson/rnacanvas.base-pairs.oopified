@@ -14,6 +14,7 @@ All exports of this package can be accessed as named imports.
 // some example imports
 import { BasePair } from '@rnacanvas/base-pairs.oopified';
 import { Stem } from '@rnacanvas/base-pairs.oopified';
+import { RadializableStructure } from '@rnacanvas/base-pairs.oopified';
 ```
 
 ## `class BasePair`
@@ -34,7 +35,7 @@ basePair[1]; // the second base
 [...basePair];
 ```
 
-## `deepCopy()`
+### `deepCopy()`
 
 Returns a new base-pair object that pairs the same two bases (in the same order).
 
