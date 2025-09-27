@@ -3,6 +3,43 @@ import { RadializableStructure } from './RadializableStructure';
 import { BasePair } from './BasePair';
 
 describe('`class RadializableStructure`', () => {
+  test('`constructor()`', () => {
+    let bases = [...'1234567890123456'].map(() => new NucleobaseMock());
+
+    // an array of base-pair tuples (creating a stem)
+    let basePairs = [
+      [bases[0], bases[9]],
+      [bases[1], bases[8]],
+      [bases[2], bases[7]],
+    ];
+
+    // a repeat base-pair
+    basePairs.push([bases[0], bases[9]]);
+
+    // a conflicting base-pair
+    // (the first base is already paired with the tenth base)
+    basePairs.push([bases[0], bases[10]]);
+
+    // a self base-pair
+    basePairs.push([bases[5], bases[5]]);
+
+    // a base-pair creating a pseudoknot
+    basePairs.push([bases[3], bases[11]]);
+
+    let structure = new RadializableStructure(bases, basePairs);
+
+    expect([...structure.bases]).toStrictEqual(bases);
+    expect(structure.bases).not.toBe(bases);
+
+    expect(structure.basePairs).not.toBe(basePairs);
+
+    [...structure.basePairs].length; // 3
+
+    expect([...[...structure.basePairs][0]]).toStrictEqual([bases[2], bases[7]]);
+    expect([...[...structure.basePairs][1]]).toStrictEqual([bases[1], bases[8]]);
+    expect([...[...structure.basePairs][2]]).toStrictEqual([bases[0], bases[9]]);
+  });
+
   test('`get bases()`', () => {
     let bases = [...'1234567890'].map(() => new NucleobaseMock());
 
