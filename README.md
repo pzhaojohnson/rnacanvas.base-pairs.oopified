@@ -16,6 +16,39 @@ import { BasePair } from '@rnacanvas/base-pairs.oopified';
 import { Stem } from '@rnacanvas/base-pairs.oopified';
 ```
 
+## `class BasePair`
+
+A pairing of two nucleobase objects.
+
+```javascript
+// two nucleobase objects
+var base1 = {};
+var base2 = {};
+
+var basePair = new BasePair(base1, base2);
+
+basePair[0]; // the first base
+basePair[1]; // the second base
+
+// is iterable
+[...basePair];
+```
+
+## `deepCopy()`
+
+Returns a new base-pair object that pairs the same two bases (in the same order).
+
+```javascript
+var base1 = {};
+var base2 = {};
+
+var bp1 = new BasePair(base1, base2);
+var bp2 = bp1.deepCopy();
+
+bp1[0] === bp2[0]; // true
+bp1[1] === bp2[1]; // true
+```
+
 ## `class RadializableStructure`
 
 A structure amenable to radializing layout drawing algorithms.
