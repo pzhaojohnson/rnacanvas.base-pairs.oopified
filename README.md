@@ -128,7 +128,7 @@ var structure = new RadializableStructure(bases, basePairs);
 
 [...structure.basePairs].length; // 3
 
-[...structure.basePairs][0]; // [ bases[0], bases[9] ]
-[...structure.basePairs][1]; // [ bases[1], bases[8] ]
-[...structure.basePairs][2]; // [ bases[2], bases[7] ]
+[...structure.basePairs][0]; // [bases[0], bases[9]]
+[...structure.basePairs][1]; // [bases[1], bases[8]]
+[...structure.basePairs][2]; // [bases[2], bases[7]]
 ```
