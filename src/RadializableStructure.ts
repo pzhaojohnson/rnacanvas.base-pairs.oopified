@@ -2,6 +2,8 @@ import { BasePair } from './BasePair';
 
 import { radializable } from '@rnacanvas/base-pairs';
 
+import { mountainPlotTraversal } from '@rnacanvas/base-pairs';
+
 export class RadializableStructure<Nucleobase> {
   #bases;
 
@@ -10,6 +12,8 @@ export class RadializableStructure<Nucleobase> {
   #indices = new Map<Nucleobase, number>();
 
   #partners = new Map<Nucleobase, Nucleobase>();
+
+  #mountainPlotTraversal;
 
   constructor(bases: Nucleobase[], basePairs: BasePairTuple<Nucleobase>[]) {
     let _: unknown;
@@ -27,6 +31,8 @@ export class RadializableStructure<Nucleobase> {
       this.#partners.set(bp[0], bp[1]);
       this.#partners.set(bp[1], bp[0]);
     });
+
+    this.#mountainPlotTraversal = mountainPlotTraversal(bases, basePairs);
   }
 
   get bases(): Iterable<Nucleobase> {
@@ -94,6 +100,16 @@ export class RadializableStructure<Nucleobase> {
     }
 
     return partner;
+  }
+
+  /**
+   * Returns the mountain plot height of a given base
+   * in the mountain plot traversal of the structure.
+   *
+   * Throws if the given base is not in the structure.
+   */
+  mountainPlotHeight(b: Nucleobase): number | never {
+    return this.#mountainPlotTraversal[this.indexOf(b)];
   }
 }
 

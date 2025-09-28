@@ -2,6 +2,8 @@ import { RadializableStructure } from './RadializableStructure';
 
 import { BasePair } from './BasePair';
 
+import { parseDotBracket } from '@rnacanvas/base-pairs';
+
 describe('`class RadializableStructure`', () => {
   test('`constructor()`', () => {
     let bases = [...'1234567890123456'].map(() => new NucleobaseMock());
@@ -164,6 +166,23 @@ describe('`class RadializableStructure`', () => {
 
     // a base that's not in the structure
     expect(() => structure.partnerOf(new NucleobaseMock())).toThrow();
+  });
+
+  test('`mountainPlotHeight()`', () => {
+    let bases = [...'1234567890123456'].map(() => new NucleobaseMock());
+
+    let basePairs = parseDotBracket(bases, '..(((....))).');
+
+    let structure = new RadializableStructure(bases, basePairs);
+
+    expect(structure.mountainPlotHeight(bases[0])).toBe(0);
+    expect(structure.mountainPlotHeight(bases[3])).toBe(1);
+    expect(structure.mountainPlotHeight(bases[6])).toBe(3);
+    expect(structure.mountainPlotHeight(bases[9])).toBe(2);
+    expect(structure.mountainPlotHeight(bases[11])).toBe(0);
+
+    // a base that's not in the structure
+    expect(() => structure.mountainPlotHeight(new NucleobaseMock())).toThrow();
   });
 });
 
