@@ -173,6 +173,52 @@ structure.positionOf(bases[6]); // 7
 structure.positionOf({}); // throws
 ```
 
+### `isPaired()`
+
+Returns `true` if the specified base is in a base-pair in the structure
+and returns `false` otherwise.
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'1234567890'].map(() => ({}));
+
+var basePairs = [
+  [bases[2], bases[9]],
+  [bases[3], bases[8]],
+];
+
+var structure = new RadializableStructure(bases, basePairs);
+
+structure.isPaired(bases[2]); // true
+structure.isPaired(bases[8]); // true
+
+structure.isPaired(bases[0]); // false
+structure.isPaired(bases[4]); // false
+```
+
+### `isUnpaired()`
+
+Returns `true` if the specified base is not in a base-pair
+and returns `false` otherwise.
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'1234567890'].map(() => ({}));
+
+var basePairs = [
+  [bases[2], bases[9]],
+  [bases[3], bases[8]],
+];
+
+var structure = new RadializableStructure(bases, basePairs);
+
+structure.isUnpaired(bases[2]); // false
+structure.isUnpaired(bases[8]); // false
+
+structure.isUnpaired(bases[0]); // true
+structure.isUnpaired(bases[4]); // true
+```
+
 ### `partnerOf()`
 
 Returns the partner base for the specified base.
