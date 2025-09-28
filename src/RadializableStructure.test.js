@@ -103,6 +103,46 @@ describe('`class RadializableStructure`', () => {
     expect(() => structure.positionOf(new NucleobaseMock())).toThrow();
   });
 
+  test('`isPaired()`', () => {
+    let bases = [...'1234567890123456'].map(() => new NucleobaseMock());
+
+    let basePairs = [
+      [bases[2], bases[14]],
+      [bases[3], bases[10]],
+    ];
+
+    let structure = new RadializableStructure(bases, basePairs);
+
+    expect(structure.isPaired(bases[2])).toBe(true);
+    expect(structure.isPaired(bases[10])).toBe(true);
+
+    expect(structure.isPaired(bases[0])).toBe(false);
+    expect(structure.isPaired(bases[4])).toBe(false);
+
+    // a base not in the structure
+    expect(structure.isPaired(new NucleobaseMock())).toBe(false);
+  });
+
+  test('`isUnpaired()`', () => {
+    let bases = [...'1234567890123456'].map(() => new NucleobaseMock());
+
+    let basePairs = [
+      [bases[2], bases[14]],
+      [bases[3], bases[10]],
+    ];
+
+    let structure = new RadializableStructure(bases, basePairs);
+
+    expect(structure.isUnpaired(bases[2])).toBe(false);
+    expect(structure.isUnpaired(bases[10])).toBe(false);
+
+    expect(structure.isUnpaired(bases[0])).toBe(true);
+    expect(structure.isUnpaired(bases[4])).toBe(true);
+
+    // a base not in the structure
+    expect(structure.isUnpaired(new NucleobaseMock())).toBe(true);
+  });
+
   test('`partnerOf()`', () => {
     let bases = [...'1234567890'].map(() => new NucleobaseMock());
 

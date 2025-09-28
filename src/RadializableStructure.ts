@@ -64,6 +64,20 @@ export class RadializableStructure<Nucleobase> {
   }
 
   /**
+   * Returns true if the base is in a base-pair in the structure.
+   */
+  isPaired(b: Nucleobase): boolean {
+    return this.#partners.has(b);
+  }
+
+  /**
+   * Returns true if the base is not in a base-pair.
+   */
+  isUnpaired(b: Nucleobase): boolean {
+    return !this.isPaired(b);
+  }
+
+  /**
    * Returns the partner base for the specified base.
    *
    * Throws if the specified base doesn't have a partner or is not in the structure.
