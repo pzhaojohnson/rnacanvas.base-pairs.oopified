@@ -245,3 +245,41 @@ structure.partnerOf(bases[0]); // throws
 
 structure.partnerOf({}); // throws
 ```
+
+### `mountainPlotHeight()`
+
+Returns the mountain plot height for a given base
+in the mountain plot traversal of the structure.
+
+Throws if the given base is not in the structure.
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'123456789012345'].map(() => ({}));
+
+bases.length; // 15
+
+var basePairs = [
+  [bases[2], bases[11]],
+  [bases[3], bases[10]],
+  [bases[4], bases[9]],
+];
+
+var structure = new RadializableStructure(bases, basePairs);
+
+structure.mountainPlotHeight(bases[0]); // 0
+structure.mountainPlotHeight(bases[1]); // 0
+structure.mountainPlotHeight(bases[2]); // 0
+structure.mountainPlotHeight(bases[3]); // 1
+structure.mountainPlotHeight(bases[4]); // 2
+structure.mountainPlotHeight(bases[5]); // 3
+structure.mountainPlotHeight(bases[6]); // 3
+structure.mountainPlotHeight(bases[7]); // 3
+structure.mountainPlotHeight(bases[8]); // 3
+structure.mountainPlotHeight(bases[9]); // 2
+structure.mountainPlotHeight(bases[10]); // 1
+structure.mountainPlotHeight(bases[11]); // 0
+structure.mountainPlotHeight(bases[12]); // 0
+structure.mountainPlotHeight(bases[13]); // 0
+structure.mountainPlotHeight(bases[14]); // 0
+```
