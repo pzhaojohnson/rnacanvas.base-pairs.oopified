@@ -246,6 +246,41 @@ structure.partnerOf(bases[0]); // throws
 structure.partnerOf({}); // throws
 ```
 
+### `get stems()`
+
+All stems in the structure.
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'12345678901234567890'].map(() => ({}));
+
+var basePairs = [];
+
+// stem 1
+basePairs.push(
+  [bases[1], bases[18]],
+  [bases[2], bases[17]],
+  [bases[3], bases[16]],
+);
+
+// stem 2
+basePairs.push(
+  [bases[5], bases[14]],
+  [bases[6], bases[13]],
+  [bases[7], bases[12]],
+);
+
+var structure = new RadializableStructure(bases, basePairs);
+
+[...structure.stems].length; // 2
+
+[...structure.stems][0].bottomBasePair[0]; // bases[1]
+[...structure.stems][0].bottomBasePair[1]; // bases[18]
+
+[...structure.stems][1].bottomBasePair[0]; // bases[5]
+[...structure.stems][1].bottomBasePair[1]; // bases[14]
+```
+
 ### `mountainPlotHeight()`
 
 Returns the mountain plot height for a given base
