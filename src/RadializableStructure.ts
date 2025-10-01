@@ -11,9 +11,9 @@ import { mountainPlotTraversal } from '@rnacanvas/base-pairs';
 export class RadializableStructure<Nucleobase> {
   #bases;
 
-  #basePairs;
-
   #indices = new Map<Nucleobase, number>();
+
+  #basePairs;
 
   #partners = new Map<Nucleobase, Nucleobase>();
 
@@ -29,9 +29,9 @@ export class RadializableStructure<Nucleobase> {
 
     this.#bases = bases;
 
-    this.#basePairs = basePairs.map(bp => new BasePair(...bp));
-
     this.#bases.forEach((b, i) => this.#indices.set(b, i));
+
+    this.#basePairs = basePairs.map(bp => new BasePair(...bp));
 
     this.#basePairs.forEach(bp => {
       this.#partners.set(bp[0], bp[1]);
@@ -45,10 +45,6 @@ export class RadializableStructure<Nucleobase> {
 
   get bases(): Iterable<Nucleobase> {
     return [...this.#bases];
-  }
-
-  get basePairs(): Iterable<BasePair<Nucleobase>> {
-    return this.#basePairs.map(bp => bp.deepCopy());
   }
 
   /**
@@ -75,6 +71,10 @@ export class RadializableStructure<Nucleobase> {
    */
   positionOf(b: Nucleobase): number | never {
     return this.indexOf(b) + 1;
+  }
+
+  get basePairs(): Iterable<BasePair<Nucleobase>> {
+    return this.#basePairs.map(bp => bp.deepCopy());
   }
 
   /**

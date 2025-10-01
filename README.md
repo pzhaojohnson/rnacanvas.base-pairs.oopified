@@ -108,31 +108,6 @@ var structure = new RadializableStructure(bases, []);
 [...structure.bases].length; // 6
 ```
 
-### `get basePairs()`
-
-All base-pairs in the structure.
-
-(An iterable of base-pair objects.)
-
-```javascript
-// an array of nucleobase objects
-var bases = [...'123456789'].map(() => ({}));
-
-var basePairs = [
-  [bases[0], bases[9]],
-  [bases[1], bases[8]],
-  [bases[2], bases[7]],
-];
-
-var structure = new RadializableStructure(bases, basePairs);
-
-[...structure.basePairs].length; // 3
-
-[...structure.basePairs][0]; // [bases[0], bases[9]]
-[...structure.basePairs][1]; // [bases[1], bases[8]]
-[...structure.basePairs][2]; // [bases[2], bases[7]]
-```
-
 ### `indexOf()`
 
 Returns the zero-based index of the specified base
@@ -171,6 +146,31 @@ structure.positionOf(bases[2]); // 3
 structure.positionOf(bases[6]); // 7
 
 structure.positionOf({}); // throws
+```
+
+### `get basePairs()`
+
+All base-pairs in the structure.
+
+(An iterable of base-pair objects.)
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'123456789'].map(() => ({}));
+
+var basePairs = [
+  [bases[0], bases[9]],
+  [bases[1], bases[8]],
+  [bases[2], bases[7]],
+];
+
+var structure = new RadializableStructure(bases, basePairs);
+
+[...structure.basePairs].length; // 3
+
+[...structure.basePairs][0]; // [bases[0], bases[9]]
+[...structure.basePairs][1]; // [bases[1], bases[8]]
+[...structure.basePairs][2]; // [bases[2], bases[7]]
 ```
 
 ### `isPaired()`

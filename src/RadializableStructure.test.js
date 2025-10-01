@@ -56,6 +56,30 @@ describe('`class RadializableStructure`', () => {
     expect([...structure.bases]).toStrictEqual(bases);
   });
 
+  test('`indexOf()`', () => {
+    let bases = [...'1234567890123456'].map(() => new NucleobaseMock());
+
+    let structure = new RadializableStructure(bases, []);
+
+    expect(structure.indexOf(bases[0])).toBe(0);
+    expect(structure.indexOf(bases[6])).toBe(6);
+    expect(structure.indexOf(bases[11])).toBe(11);
+
+    expect(() => structure.indexOf(new NucleobaseMock())).toThrow();
+  });
+
+  test('`positionOf()`', () => {
+    let bases = [...'1234567890123456'].map(() => new NucleobaseMock());
+
+    let structure = new RadializableStructure(bases, []);
+
+    expect(structure.positionOf(bases[0])).toBe(1);
+    expect(structure.positionOf(bases[6])).toBe(7);
+    expect(structure.positionOf(bases[11])).toBe(12);
+
+    expect(() => structure.positionOf(new NucleobaseMock())).toThrow();
+  });
+
   test('`get basePairs()`', () => {
     let bases = [...'1234567890123456'].map(() => new NucleobaseMock());
 
@@ -79,30 +103,6 @@ describe('`class RadializableStructure`', () => {
     // does not allow base-pairs iterable to be edited
     structure.basePairs.push(new BasePair({}, {}));
     expect([...structure.basePairs].length).toBe(5);
-  });
-
-  test('`indexOf()`', () => {
-    let bases = [...'1234567890123456'].map(() => new NucleobaseMock());
-
-    let structure = new RadializableStructure(bases, []);
-
-    expect(structure.indexOf(bases[0])).toBe(0);
-    expect(structure.indexOf(bases[6])).toBe(6);
-    expect(structure.indexOf(bases[11])).toBe(11);
-
-    expect(() => structure.indexOf(new NucleobaseMock())).toThrow();
-  });
-
-  test('`positionOf()`', () => {
-    let bases = [...'1234567890123456'].map(() => new NucleobaseMock());
-
-    let structure = new RadializableStructure(bases, []);
-
-    expect(structure.positionOf(bases[0])).toBe(1);
-    expect(structure.positionOf(bases[6])).toBe(7);
-    expect(structure.positionOf(bases[11])).toBe(12);
-
-    expect(() => structure.positionOf(new NucleobaseMock())).toThrow();
   });
 
   test('`isPaired()`', () => {
