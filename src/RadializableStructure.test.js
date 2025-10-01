@@ -168,6 +168,25 @@ describe('`class RadializableStructure`', () => {
     expect(() => structure.partnerOf(new NucleobaseMock())).toThrow();
   });
 
+  test('`get stems()`', () => {
+    let bases = [...'12345678901234567890123456789012'].map(() => new NucleobaseMock());
+
+    // an unstructured structure
+    var structure = new RadializableStructure(bases, []);
+
+    expect([...structure.stems].length).toBe(0);
+
+    let basePairs = parseDotBracket(bases, '..(((...((((.....))..))....)))..');
+
+    var structure = new RadializableStructure(bases, basePairs);
+
+    expect([...structure.stems].length).toBe(3);
+
+    expect([...[...structure.stems][0].bottomBasePair]).toStrictEqual([bases[2], bases[29]]);
+    expect([...[...structure.stems][1].bottomBasePair]).toStrictEqual([bases[8], bases[22]]);
+    expect([...[...structure.stems][2].bottomBasePair]).toStrictEqual([bases[10], bases[18]]);
+  });
+
   test('`mountainPlotHeight()`', () => {
     let bases = [...'1234567890123456'].map(() => new NucleobaseMock());
 

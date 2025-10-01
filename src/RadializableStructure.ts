@@ -1,6 +1,10 @@
 import { BasePair } from './BasePair';
 
+import { Stem } from './Stem';
+
 import { radializable } from '@rnacanvas/base-pairs';
+
+import { Stems } from '@rnacanvas/base-pairs';
 
 import { mountainPlotTraversal } from '@rnacanvas/base-pairs';
 
@@ -12,6 +16,8 @@ export class RadializableStructure<Nucleobase> {
   #indices = new Map<Nucleobase, number>();
 
   #partners = new Map<Nucleobase, Nucleobase>();
+
+  #stems;
 
   #mountainPlotTraversal;
 
@@ -31,6 +37,8 @@ export class RadializableStructure<Nucleobase> {
       this.#partners.set(bp[0], bp[1]);
       this.#partners.set(bp[1], bp[0]);
     });
+
+    this.#stems = (new Stems(bases, basePairs)).get().map(stem => new Stem(stem));
 
     this.#mountainPlotTraversal = mountainPlotTraversal(bases, basePairs);
   }
@@ -100,6 +108,13 @@ export class RadializableStructure<Nucleobase> {
     }
 
     return partner;
+  }
+
+  /**
+   * All stems in the structure.
+   */
+  get stems(): Iterable<Stem<Nucleobase>> {
+    return [...this.#stems];
   }
 
   /**
