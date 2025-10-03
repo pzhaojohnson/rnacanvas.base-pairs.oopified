@@ -137,6 +137,29 @@ export class RadializableStructure<Nucleobase> {
   }
 
   /**
+   * Returns the substructure defined by a starting base and an ending base, inclusive.
+   *
+   * The starting and ending base can be input to this method in either order.
+   *
+   * This method will never return the substructure in reverse order.
+   *
+   * This method will throw if either the starting or ending base are not present in the structure.
+   */
+  substructure(startingBase: Nucleobase, endingBase: Nucleobase): RadializableStructure<Nucleobase> | never {
+    let subsequence = [...this.subsequence(startingBase, endingBase)];
+
+    let subsequenceSet = new Set(subsequence);
+
+    let basePairs: [Nucleobase, Nucleobase][] = (
+      this.#basePairs
+        .filter(bp => subsequenceSet.has(bp[0]) && subsequenceSet.has(bp[1]))
+        .map(bp => [bp[0], bp[1]])
+    );
+
+    return new RadializableStructure(subsequence, basePairs);
+  }
+
+  /**
    * Returns the mountain plot height of a given base
    * in the mountain plot traversal of the structure.
    *

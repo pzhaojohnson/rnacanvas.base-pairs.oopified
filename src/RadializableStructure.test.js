@@ -208,6 +208,47 @@ describe('`class RadializableStructure`', () => {
     expect([...[...structure.stems][2].bottomBasePair]).toStrictEqual([bases[10], bases[18]]);
   });
 
+  test('`substructure()`', () => {
+    let bases = [...'123456789012345678901234567890'].map(() => new NucleobaseMock());
+    expect(bases.length).toBe(30);
+
+    let basePairs = [];
+
+    // hairpin 1
+    basePairs.push([bases[1], bases[8]], [bases[2], bases[7]]);
+
+    // hairpin 2
+    basePairs.push([bases[11], bases[18]], [bases[12], bases[17]]);
+
+    // hairpin 3
+    basePairs.push([bases[21], bases[28]], [bases[22], bases[27]]);
+
+    let structure = new RadializableStructure(bases, basePairs);
+
+    var substructure = structure.substructure(bases[5], bases[25]);
+
+    expect([...substructure.bases]).toStrictEqual(bases.slice(5, 25 + 1));
+
+    expect([...substructure.basePairs].length).toBe(2);
+    expect([...[...substructure.basePairs][1]]).toStrictEqual([bases[11], bases[18]]);
+    expect([...[...substructure.basePairs][0]]).toStrictEqual([bases[12], bases[17]]);
+
+    // reverse starting and ending bases
+    var substructure = structure.substructure(bases[25], bases[5]);
+
+    expect([...substructure.bases]).toStrictEqual(bases.slice(5, 25 + 1));
+
+    expect([...substructure.basePairs].length).toBe(2);
+    expect([...[...substructure.basePairs][1]]).toStrictEqual([bases[11], bases[18]]);
+    expect([...[...substructure.basePairs][0]]).toStrictEqual([bases[12], bases[17]]);
+
+    // starting base is not in structure
+    expect(() => structure.substructure(new NucleobaseMock(), bases[25])).toThrow();
+
+    // ending base is not in structure
+    expect(() => structure.substructure(bases[5], new NucleobaseMock())).toThrow();
+  });
+
   test('`mountainPlotHeight()`', () => {
     let bases = [...'1234567890123456'].map(() => new NucleobaseMock());
 
