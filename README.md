@@ -148,6 +148,27 @@ structure.positionOf(bases[6]); // 7
 structure.positionOf({}); // throws
 ```
 
+### `subsequence()`
+
+Returns the subsequence defined by a starting base and an ending base, inclusive.
+
+The starting and ending base can be input to this method in either order.
+
+(This method will never return the subsequence in reverse order.)
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'1234567890'].map(() => ({}));
+
+var structure = new RadializableStructure(bases, []);
+
+[...structure.subsequence(bases[3], bases[7])]; // bases.slice(3, 7 + 1)
+
+[...structure.subsequence(bases[7], bases[3])]; // bases.slice(3, 7 + 1)
+```
+
+This method will throw if either the starting base or ending base are not present in the structure.
+
 ### `get basePairs()`
 
 All base-pairs in the structure.
