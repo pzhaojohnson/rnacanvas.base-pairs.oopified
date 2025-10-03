@@ -80,6 +80,27 @@ describe('`class RadializableStructure`', () => {
     expect(() => structure.positionOf(new NucleobaseMock())).toThrow();
   });
 
+  test('`subsequence()`', () => {
+    let bases = [...'1234567890123456'].map(() => new NucleobaseMock());
+
+    let structure = new RadializableStructure(bases, []);
+
+    // base 1 comes before base 2
+    expect([...structure.subsequence(bases[2], bases[8])]).toStrictEqual(bases.slice(2, 8 + 1));
+
+    // base 1 comes after base 2
+    expect([...structure.subsequence(bases[6], bases[3])]).toStrictEqual(bases.slice(3, 6 + 1));
+
+    // base 1 and base 2 are the same base
+    expect([...structure.subsequence(bases[7], bases[7])]).toStrictEqual([bases[7]]);
+
+    // base 1 is not in the structure
+    expect(() => structure.subsequence(new NucleobaseMock(), bases[2])).toThrow();
+
+    // base 2 is not in the structure
+    expect(() => structure.subsequence(bases[5], new NucleobaseMock())).toThrow();
+  });
+
   test('`get basePairs()`', () => {
     let bases = [...'1234567890123456'].map(() => new NucleobaseMock());
 

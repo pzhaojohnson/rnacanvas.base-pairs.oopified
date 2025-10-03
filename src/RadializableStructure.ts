@@ -73,6 +73,25 @@ export class RadializableStructure<Nucleobase> {
     return this.indexOf(b) + 1;
   }
 
+  /**
+   * Returns the subsequence defined by a start base and an end base, inclusive.
+   *
+   * The start base and end base can be input in either order.
+   *
+   * This method will never return the subsequence in reverse order.
+   *
+   * This method will throw if either the start base or end base are not in the structure.
+   */
+  subsequence(startBase: Nucleobase, endBase: Nucleobase): Iterable<Nucleobase> | never {
+    let startIndex = this.indexOf(startBase);
+    let endIndex = this.indexOf(endBase);
+
+    let minIndex = Math.min(startIndex, endIndex);
+    let maxIndex = Math.max(startIndex, endIndex);
+
+    return this.#bases.slice(minIndex, maxIndex + 1);
+  }
+
   get basePairs(): Iterable<BasePair<Nucleobase>> {
     return this.#basePairs.map(bp => bp.deepCopy());
   }
