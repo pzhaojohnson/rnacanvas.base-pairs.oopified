@@ -302,6 +302,51 @@ var structure = new RadializableStructure(bases, basePairs);
 [...structure.stems][1].bottomBasePair[1]; // bases[14]
 ```
 
+### `substructure()`
+
+Returns the substructure defined by a starting base and an ending base, inclusive.
+
+Only base-pairs involving bases exclusively within the substructure are included.
+
+The starting and ending bases can be input to this method in either order.
+
+(This method will never return the substructure in reverse order.)
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'123456789012345678901234'].map(() => ({}));
+
+var basePairs = [];
+
+// an outer stem
+basePairs.push(
+  [bases[1], bases[21]],
+  [bases[2], bases[20]],
+  [bases[3], bases[19]],
+);
+
+// an inner stem
+basePairs.push(
+  [bases[6], bases[16]],
+  [bases[7], bases[15]],
+  [bases[8], bases[14]],
+);
+
+var structure = new RadializableStructure(bases, basePairs);
+
+var substructure = structure.substructure(bases[5], bases[17]);
+
+[...substructure.bases]; // bases.slice(5, 17 + 1)
+
+[...substructure.basePairs].length; // 3
+
+[...[...substructure.basePairs][0]]; // [bases[6], bases[16]]
+[...[...substructure.basePairs][1]]; // [bases[7], bases[15]]
+[...[...substructure.basePairs][2]]; // [bases[8], bases[14]]
+```
+
+This method will throw if either the starting base or the ending base are not present in the structure.
+
 ### `mountainPlotHeight()`
 
 Returns the mountain plot height for a given base
