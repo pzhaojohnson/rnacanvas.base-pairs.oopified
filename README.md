@@ -169,6 +169,30 @@ var structure = new RadializableStructure(bases, []);
 
 This method will throw if either the starting base or ending base are not present in the structure.
 
+### `interveningBases()`
+
+Returns the subsequence of bases between two bases (not including the two bases themselves).
+
+The two bases can be input to this method in either order.
+
+(This method will never return the intervening bases in reverse order.)
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'1234567890123456'].map(() => ({}));
+
+var structure = new RadializableStructure(bases, []);
+
+[...structure.interveningBases(bases[3], bases[9])]; // bases.slice(4, 8 + 1)
+[...structure.interveningBases(bases[9], bases[3])]; // bases.slice(4, 8 + 1)
+
+// when there are no intervening bases
+[...structure.interveningBases(bases[3], bases[3])]; // []
+[...structure.interveningBases(bases[3], bases[4])]; // []
+```
+
+This method will throw if either of the two bases input to it are not present in the structure.
+
 ### `get basePairs()`
 
 All base-pairs in the structure.
