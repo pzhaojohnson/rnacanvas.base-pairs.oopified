@@ -93,7 +93,8 @@ export class RadializableStructure<Nucleobase> {
   }
 
   /**
-   * Returns the subsequence of bases between the two bases.
+   * Returns the subsequence of bases between two bases
+   * (not including the two bases themselves).
    *
    * The two bases can be input to this method in either order.
    *
