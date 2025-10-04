@@ -92,6 +92,21 @@ export class RadializableStructure<Nucleobase> {
     return this.#bases.slice(minIndex, maxIndex + 1);
   }
 
+  /**
+   * Returns the subsequence of bases between the two bases.
+   *
+   * The two bases can be input to this method in either order.
+   *
+   * (This method will never return the intervening bases in reverse order.)
+   *
+   * This method will throw if either of the input bases is not present in the structure.
+   */
+  interveningBases(b1: Nucleobase, b2: Nucleobase): Iterable<Nucleobase> | never {
+    let subsequence = [...this.subsequence(b1, b2)];
+
+    return subsequence.slice(1, -1);
+  }
+
   get basePairs(): Iterable<BasePair<Nucleobase>> {
     return this.#basePairs.map(bp => bp.deepCopy());
   }
