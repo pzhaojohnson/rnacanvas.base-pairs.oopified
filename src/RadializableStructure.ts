@@ -48,6 +48,20 @@ export class RadializableStructure<Nucleobase> {
   }
 
   /**
+   * The number of bases in the structure.
+   */
+  get numBases(): number {
+    return this.#bases.length;
+  }
+
+  /**
+   * The number of bases in the structure.
+   */
+  get length(): number {
+    return this.numBases;
+  }
+
+  /**
    * Returns the zero-based index of the specified base
    * in the sequence of bases for the structure.
    *

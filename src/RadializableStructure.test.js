@@ -56,6 +56,26 @@ describe('`class RadializableStructure`', () => {
     expect([...structure.bases]).toStrictEqual(bases);
   });
 
+  test('`get numBases()`', () => {
+    let bases = [...'123456789'].map(() => new NucleobaseMock());
+
+    var structure = new RadializableStructure(bases, []);
+    expect(structure.numBases).toBe(9);
+
+    var structure = new RadializableStructure([], []);
+    expect(structure.numBases).toBe(0);
+  });
+
+  test('`get length()`', () => {
+    let bases = [...'1234567'].map(() => new NucleobaseMock());
+
+    var structure = new RadializableStructure(bases, []);
+    expect(structure.length).toBe(7);
+
+    var structure = new RadializableStructure([], []);
+    expect(structure.length).toBe(0);
+  });
+
   test('`indexOf()`', () => {
     let bases = [...'1234567890123456'].map(() => new NucleobaseMock());
 
