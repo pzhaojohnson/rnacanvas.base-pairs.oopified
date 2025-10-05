@@ -167,6 +167,31 @@ export class RadializableStructure<Nucleobase> {
   }
 
   /**
+   * Returns the sequence of bases joined by a base-pair
+   * (including the two bases in the base-pair).
+   *
+   * The ordering of the two bases within the input base-pair doesn't matter.
+   *
+   * (This method will never return the joined bases in reverse order.)
+   *
+   * This method will throw if either base in the input base-pair is not present in the structure.
+   */
+  joinedBases(bp: BasePair<Nucleobase> | [Nucleobase, Nucleobase]): Iterable<Nucleobase> | never {
+    let index1 = this.indexOf(bp[0]);
+    let index2 = this.indexOf(bp[1]);
+
+    let minIndex = Math.min(index1, index2);
+    let maxIndex = Math.max(index1, index2);
+
+    // in case of a self-pair
+    if (minIndex == maxIndex) {
+      return [...this.#bases];
+    } else {
+      return [...this.#bases.slice(0, minIndex + 1), ...this.#bases.slice(maxIndex)];
+    }
+  }
+
+  /**
    * Returns the substructure defined by a starting base and an ending base, inclusive.
    *
    * The starting and ending base can be input to this method in either order.

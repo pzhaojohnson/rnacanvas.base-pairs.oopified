@@ -265,6 +265,44 @@ describe('`class RadializableStructure`', () => {
     expect([...structure.spannedBases(bp)]).toStrictEqual(bases.slice(4, 10 + 1));
   });
 
+  test('`joinedBases()`', () => {
+    var bases = [...'12345678901234567890'].map(() => new NucleobaseMock());
+
+    var structure = new RadializableStructure(bases, []);
+
+    // base 1 comes before base 2
+    expect([...structure.joinedBases([bases[4], bases[9]])]).toStrictEqual([...bases.slice(0, 4 + 1), ...bases.slice(9)]);
+
+    // base 1 comes after base 2
+    expect([...structure.joinedBases([bases[9], bases[4]])]).toStrictEqual([...bases.slice(0, 4 + 1), ...bases.slice(9)]);
+
+    // a base-pair object
+    expect([...structure.joinedBases(new BasePair(bases[4], bases[9]))]).toStrictEqual([...bases.slice(0, 4 + 1), ...bases.slice(9)]);
+
+    // the base-pair involves the first base in the structure
+    expect([...structure. joinedBases([bases[0], bases[15]])]).toStrictEqual([bases[0], ...bases.slice(15)]);
+
+    // the base-pair involves the last base in the structure
+    expect([...structure.joinedBases([bases[4], bases.at(-1)])]).toStrictEqual([...bases.slice(0, 4 + 1), bases[19]]);
+
+    expect([...structure.joinedBases([bases[0], bases.at(-1)])]).toStrictEqual([bases[0], bases[19]]);
+
+    // base 1 is not in the structure
+    expect(() => structure.joinedBases(new NucleobaseMock(), bases[5])).toThrow();
+
+    // base 2 is not in the structure
+    expect(() => structure.joinedBases(bases[6], new NucleobaseMock())).toThrow();
+
+    // a self-pair
+    expect([...structure.joinedBases([bases[5], bases[5]])]).toStrictEqual(bases);
+
+    var b = new NucleobaseMock();
+
+    // a self-pair and a sequence length of 1
+    var structure = new RadializableStructure([b], []);
+    expect([...structure.joinedBases([b, b])]).toStrictEqual([b]);
+  });
+
   test('`substructure()`', () => {
     let bases = [...'123456789012345678901234567890'].map(() => new NucleobaseMock());
     expect(bases.length).toBe(30);
