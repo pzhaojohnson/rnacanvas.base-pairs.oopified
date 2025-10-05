@@ -136,42 +136,6 @@ var structure = new RadializableStructure(bases, []);
 structure.length; // 6
 ```
 
-### `get firstBase()`
-
-The first base in the structure.
-
-Throws for empty structures.
-
-```javascript
-// an array of nucleobase objects
-var bases = [...'123456'].map(() => ({}));
-
-var structure = new RadializableStructure(bases, []);
-structure.firstBase; // bases[0]
-
-// an empty structure
-var structure = new RadializableStructure([], []);
-structure.firstBase; // throws
-```
-
-### `get lastBase()`
-
-The last base in the structure.
-
-Throws for empty structures.
-
-```javascript
-// an array of nucleobase objects
-var bases = [...'123456'].map(() => ({}));
-
-var structure = new RadializableStructure(bases, []);
-structure.lastBase; // bases[5]
-
-// an empty structure
-var structure = new RadializableStructure([], []);
-structure.lastBase; // throws
-```
-
 ### `indexOf()`
 
 Returns the zero-based index of the specified base
@@ -210,6 +174,42 @@ structure.positionOf(bases[2]); // 3
 structure.positionOf(bases[6]); // 7
 
 structure.positionOf({}); // throws
+```
+
+### `get firstBase()`
+
+The first base in the structure.
+
+Throws for empty structures.
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'123456'].map(() => ({}));
+
+var structure = new RadializableStructure(bases, []);
+structure.firstBase; // bases[0]
+
+// an empty structure
+var structure = new RadializableStructure([], []);
+structure.firstBase; // throws
+```
+
+### `get lastBase()`
+
+The last base in the structure.
+
+Throws for empty structures.
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'123456'].map(() => ({}));
+
+var structure = new RadializableStructure(bases, []);
+structure.lastBase; // bases[5]
+
+// an empty structure
+var structure = new RadializableStructure([], []);
+structure.lastBase; // throws
 ```
 
 ### `subsequence()`

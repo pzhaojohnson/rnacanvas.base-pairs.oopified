@@ -76,6 +76,30 @@ describe('`class RadializableStructure`', () => {
     expect(structure.length).toBe(0);
   });
 
+  test('`indexOf()`', () => {
+    let bases = [...'1234567890123456'].map(() => new NucleobaseMock());
+
+    let structure = new RadializableStructure(bases, []);
+
+    expect(structure.indexOf(bases[0])).toBe(0);
+    expect(structure.indexOf(bases[6])).toBe(6);
+    expect(structure.indexOf(bases[11])).toBe(11);
+
+    expect(() => structure.indexOf(new NucleobaseMock())).toThrow();
+  });
+
+  test('`positionOf()`', () => {
+    let bases = [...'1234567890123456'].map(() => new NucleobaseMock());
+
+    let structure = new RadializableStructure(bases, []);
+
+    expect(structure.positionOf(bases[0])).toBe(1);
+    expect(structure.positionOf(bases[6])).toBe(7);
+    expect(structure.positionOf(bases[11])).toBe(12);
+
+    expect(() => structure.positionOf(new NucleobaseMock())).toThrow();
+  });
+
   test('`get firstBase()`', () => {
     let bases = [...'123456'].map(() => new NucleobaseMock());
 
@@ -106,30 +130,6 @@ describe('`class RadializableStructure`', () => {
     // no bases
     var structure = new RadializableStructure([], []);
     expect(() => structure.lastBase).toThrow();
-  });
-
-  test('`indexOf()`', () => {
-    let bases = [...'1234567890123456'].map(() => new NucleobaseMock());
-
-    let structure = new RadializableStructure(bases, []);
-
-    expect(structure.indexOf(bases[0])).toBe(0);
-    expect(structure.indexOf(bases[6])).toBe(6);
-    expect(structure.indexOf(bases[11])).toBe(11);
-
-    expect(() => structure.indexOf(new NucleobaseMock())).toThrow();
-  });
-
-  test('`positionOf()`', () => {
-    let bases = [...'1234567890123456'].map(() => new NucleobaseMock());
-
-    let structure = new RadializableStructure(bases, []);
-
-    expect(structure.positionOf(bases[0])).toBe(1);
-    expect(structure.positionOf(bases[6])).toBe(7);
-    expect(structure.positionOf(bases[11])).toBe(12);
-
-    expect(() => structure.positionOf(new NucleobaseMock())).toThrow();
   });
 
   test('`subsequence()`', () => {
