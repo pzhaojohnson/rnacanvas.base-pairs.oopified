@@ -235,6 +235,36 @@ describe('`class RadializableStructure`', () => {
     expect([...[...structure.stems][2].bottomBasePair]).toStrictEqual([bases[10], bases[18]]);
   });
 
+  test('`spannedBases()`', () => {
+    let bases = [...'1234567890123456'].map(() => new NucleobaseMock());
+
+    let structure = new RadializableStructure(bases, []);
+
+    // base 1 comes before base 2
+    expect([...structure.spannedBases([bases[3], bases[11]])]).toStrictEqual(bases.slice(4, 10 + 1));
+
+    // base 1 comes after base 2
+    expect([...structure.spannedBases([bases[11], bases[3]])]).toStrictEqual(bases.slice(4, 10 + 1));
+
+    // one spanned base
+    expect([...structure.spannedBases([bases[3], bases[5]])]).toStrictEqual([bases[4]]);
+
+    // there are no spanned bases
+    expect([...structure.spannedBases([bases[3], bases[3]])]).toStrictEqual([]);
+    expect([...structure.spannedBases([bases[3], bases[4]])]).toStrictEqual([]);
+
+    // base 1 is not present in the structure
+    expect(() => structure.spannedBases(new NucleobaseMock(), bases[5])).toThrow();
+
+    // base 2 is not present in the structure
+    expect(() => structure.spannedBases(bases[2], new NucleobaseMock())).toThrow();
+
+    let bp = new BasePair(bases[3], bases[11]);
+
+    // inputting a base-pair object
+    expect([...structure.spannedBases(bp)]).toStrictEqual(bases.slice(4, 10 + 1));
+  });
+
   test('`substructure()`', () => {
     let bases = [...'123456789012345678901234567890'].map(() => new NucleobaseMock());
     expect(bases.length).toBe(30);

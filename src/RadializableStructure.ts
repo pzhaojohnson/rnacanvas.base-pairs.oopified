@@ -153,6 +153,20 @@ export class RadializableStructure<Nucleobase> {
   }
 
   /**
+   * Returns the subsequence of bases between the two bases of a base-pair
+   * (not including the two bases of the base-pair).
+   *
+   * The two bases of the base-pair can be ordered either way within the base-pair.
+   *
+   * (This method will never return the spanned bases in reverse order.)
+   *
+   * This method will throw if either base of the base-pair is not present in the structure.
+   */
+  spannedBases(bp: BasePair<Nucleobase> | [Nucleobase, Nucleobase]): Iterable<Nucleobase> | never {
+    return this.interveningBases(bp[0], bp[1]);
+  }
+
+  /**
    * Returns the substructure defined by a starting base and an ending base, inclusive.
    *
    * The starting and ending base can be input to this method in either order.
