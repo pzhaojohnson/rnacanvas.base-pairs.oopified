@@ -351,7 +351,7 @@ var structure = new RadializableStructure(bases, []);
 
 This method will throw if either base of the input base-pair is not present in the structure.
 
-Note that it is allowed for the input base-pair itself to not be present in the structure,
+Note that it is allowed for the input base-pair to not be present in the structure,
 so long as its two bases are present in the structure.
 
 ### `substructure()`
