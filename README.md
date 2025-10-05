@@ -326,6 +326,34 @@ var structure = new RadializableStructure(bases, basePairs);
 [...structure.stems][1].bottomBasePair[1]; // bases[14]
 ```
 
+### `spannedBases()`
+
+Returns the subsequence between the two bases of a base-pair
+(not including the two bases of the base-pair).
+
+The two bases of the input base-pair can be ordered either way within the base-pair.
+
+(This method will never return the spanned bases in reverse order.)
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'1234567890123456'].map(() => ({}));
+
+var structure = new RadializableStructure(bases, []);
+
+[...structure.spannedBases([bases[3], bases[11]])]; // bases.slice(4, 10 + 1)
+[...structure.spannedBases([bases[11], bases[3]])]; // bases.slice(4, 10 + 1)
+
+// zero spanned bases
+[...structure.spannedBases([bases[3], bases[3]])]; // []
+[...structure.spannedBases([bases[3], bases[4]])]; // []
+```
+
+This method will throw if either base of the input base-pair is not present in the structure.
+
+Note that it is allowed for the input base-pair itself to not be present in the structure,
+so long as its two bases are present in the structure.
+
 ### `substructure()`
 
 Returns the substructure defined by a starting base and an ending base, inclusive.
