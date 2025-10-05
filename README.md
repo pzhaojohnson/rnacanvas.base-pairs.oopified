@@ -354,6 +354,33 @@ This method will throw if either base of the input base-pair is not present in t
 Note that it is allowed for the input base-pair to not be present in the structure,
 so long as its two bases are present in the structure.
 
+### `joinedBases()`
+
+Returns the sequence of bases joined by a base-pair
+(including the two bases in the base-pair).
+
+The ordering of the two bases within the input base-pair doesn't matter.
+
+(This method will never return the joined bases in reverse order.)
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'12345678901234567890'].map(() => ({}));
+
+var structure = new RadializableStructure(bases, []);
+
+[...structure.joinedBases([bases[5], bases[10]])]; // [...bases.slice(0, 5 + 1), ...bases.slice(10)]
+[...structure.joinedBases([bases[10], bases[5]])]; // [...bases.slice(0, 5 + 1), ...bases.slice(10)]
+
+// neighboring bases
+[...structure.joinedBases([bases[5], bases[6]])]; // [...bases]
+
+// a self-pair
+[...structure.joinedBases([bases[5], bases[5]])]; // [...bases]
+```
+
+This method will throw if either base in the input base-pair is not present in the structure.
+
 ### `substructure()`
 
 Returns the substructure defined by a starting base and an ending base, inclusive.
