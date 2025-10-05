@@ -108,6 +108,34 @@ var structure = new RadializableStructure(bases, []);
 [...structure.bases].length; // 6
 ```
 
+### `get numBases()`
+
+The number of bases in the structure.
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'123456'].map(() => ({}));
+
+var structure = new RadializableStructure(bases, []);
+
+structure.numBases; // 6
+```
+
+### `get length()`
+
+The number of bases in the structure.
+
+(An alias for the `numBases()` getter.)
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'123456'].map(() => ({}));
+
+var structure = new RadializableStructure(bases, []);
+
+structure.length; // 6
+```
+
 ### `indexOf()`
 
 Returns the zero-based index of the specified base
