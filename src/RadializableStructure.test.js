@@ -76,6 +76,38 @@ describe('`class RadializableStructure`', () => {
     expect(structure.length).toBe(0);
   });
 
+  test('`get firstBase()`', () => {
+    let bases = [...'123456'].map(() => new NucleobaseMock());
+
+    // multiple bases
+    var structure = new RadializableStructure(bases, []);
+    expect(structure.firstBase).toBe(bases[0]);
+
+    // one base
+    var structure = new RadializableStructure([bases[2]], []);
+    expect(structure.firstBase).toBe(bases[2]);
+
+    // no bases
+    var structure = new RadializableStructure([], []);
+    expect(() => structure.firstBase).toThrow();
+  });
+
+  test('`get lastBase()`', () => {
+    let bases = [...'123456'].map(() => new NucleobaseMock());
+
+    // multiple bases
+    var structure = new RadializableStructure(bases, []);
+    expect(structure.lastBase).toBe(bases[5]);
+
+    // one base
+    var structure = new RadializableStructure([bases[2]], []);
+    expect(structure.lastBase).toBe(bases[2]);
+
+    // no bases
+    var structure = new RadializableStructure([], []);
+    expect(() => structure.lastBase).toThrow();
+  });
+
   test('`indexOf()`', () => {
     let bases = [...'1234567890123456'].map(() => new NucleobaseMock());
 

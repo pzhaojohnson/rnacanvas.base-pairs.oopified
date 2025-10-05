@@ -62,6 +62,32 @@ export class RadializableStructure<Nucleobase> {
   }
 
   /**
+   * The first base in the structure.
+   *
+   * Throws for empty structures.
+   */
+  get firstBase(): Nucleobase | never {
+    if (this.numBases == 0) {
+      throw new Error('The structure is empty.');
+    }
+
+    return this.#bases[0];
+  }
+
+  /**
+   * The last base in the structure.
+   *
+   * Throws for empty structures.
+   */
+  get lastBase(): Nucleobase | never {
+    if (this.numBases == 0) {
+      throw new Error('The structure is empty.');
+    }
+
+    return this.#bases[this.#bases.length - 1];
+  }
+
+  /**
    * Returns the zero-based index of the specified base
    * in the sequence of bases for the structure.
    *
