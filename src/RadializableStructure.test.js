@@ -76,6 +76,26 @@ describe('`class RadializableStructure`', () => {
     expect(structure.length).toBe(0);
   });
 
+  test('`atIndex()`', () => {
+    let bases = [...'123456'].map(() => new NucleobaseMock());
+
+    var structure = new RadializableStructure(bases, []);
+
+    expect(structure.atIndex(0)).toBe(bases[0]);
+    expect(structure.atIndex(2)).toBe(bases[2]);
+    expect(structure.atIndex(5)).toBe(bases[5]);
+
+    // out of bounds
+    expect(() => structure.atIndex(-10)).toThrow();
+    expect(() => structure.atIndex(-1)).toThrow();
+    expect(() => structure.atIndex(6)).toThrow();
+    expect(() => structure.atIndex(60)).toThrow();
+
+    // empty structure
+    var structure = new RadializableStructure([], []);
+    expect(() => structure.atIndex(0)).toThrow();
+  });
+
   test('`indexOf()`', () => {
     let bases = [...'1234567890123456'].map(() => new NucleobaseMock());
 
@@ -86,6 +106,26 @@ describe('`class RadializableStructure`', () => {
     expect(structure.indexOf(bases[11])).toBe(11);
 
     expect(() => structure.indexOf(new NucleobaseMock())).toThrow();
+  });
+
+  test('`atPosition()`', () => {
+    let bases = [...'123456'].map(() => new NucleobaseMock());
+
+    var structure = new RadializableStructure(bases, []);
+
+    expect(structure.atPosition(1)).toBe(bases[0]);
+    expect(structure.atPosition(3)).toBe(bases[2]);
+    expect(structure.atPosition(6)).toBe(bases[5]);
+
+    // out of bounds
+    expect(() => structure.atPosition(-10)).toThrow();
+    expect(() => structure.atPosition(0)).toThrow();
+    expect(() => structure.atPosition(7)).toThrow();
+    expect(() => structure.atPosition(60)).toThrow();
+
+    // empty structure
+    var structure = new RadializableStructure([], []);
+    expect(() => structure.atPosition(1)).toThrow();
   });
 
   test('`positionOf()`', () => {

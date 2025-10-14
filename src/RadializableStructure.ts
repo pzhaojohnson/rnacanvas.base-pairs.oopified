@@ -62,6 +62,19 @@ export class RadializableStructure<Nucleobase> {
   }
 
   /**
+   * Returns the base at the zero-based index.
+   *
+   * Throws for out-of-bounds indices.
+   */
+  atIndex(i: number): Nucleobase | never {
+    if (i < 0 || i > this.#bases.length - 1) {
+      throw new Error('Index is out-of-bounds.');
+    }
+
+    return this.#bases[i];
+  }
+
+  /**
    * Returns the zero-based index of the specified base
    * in the sequence of bases for the structure.
    *
@@ -75,6 +88,19 @@ export class RadializableStructure<Nucleobase> {
     }
 
     return i;
+  }
+
+  /**
+   * Returns the base at the one-based position.
+   *
+   * Throws for out-of-bounds positions.
+   */
+  atPosition(p: number): Nucleobase | never {
+    if (p < 1 || p > this.#bases.length) {
+      throw new Error('Position is out-of-bounds.');
+    }
+
+    return this.#bases[p - 1];
   }
 
   /**

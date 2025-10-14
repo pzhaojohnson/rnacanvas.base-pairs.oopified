@@ -1,6 +1,6 @@
 {
   "name": "@rnacanvas/base-pairs.oopified",
-  "version": "1.33.1",
+  "version": "1.34.0",
   "description": "Work with base-pairs in an object-oriented way",
   "repository": {
     "type": "git",
