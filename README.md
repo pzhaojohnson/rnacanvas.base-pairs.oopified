@@ -136,6 +136,26 @@ var structure = new RadializableStructure(bases, []);
 structure.length; // 6
 ```
 
+### `atIndex()`
+
+Returns the base at the zero-based index in the structure.
+
+Throws for out-of-bounds indices.
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'123456'].map(() => ({}));
+
+var structure = new RadializableStructure(bases, []);
+
+structure.atIndex(0); // bases[0]
+structure.atIndex(2); // bases[2]
+structure.atIndex(5); // bases[5]
+
+structure.atIndex(-1); // throws
+structure.atIndex(6); // throws
+```
+
 ### `indexOf()`
 
 Returns the zero-based index of the specified base
@@ -154,6 +174,26 @@ structure.indexOf(bases[2]); // 2
 structure.indexOf(bases[6]); // 6
 
 structure.indexOf({}); // throws
+```
+
+### `atPosition()`
+
+Returns the base at the one-based position in the structure.
+
+Throws for out-of-bounds positions.
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'123456'].map(() => ({}));
+
+var structure = new RadializableStructure(bases, []);
+
+structure.atPosition(1); // bases[0]
+structure.atPosition(3); // bases[2]
+structure.atPosition(6); // bases[5]
+
+structure.atPosition(0); // throws
+structure.atPosition(7); // throws
 ```
 
 ### `positionOf()`
