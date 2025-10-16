@@ -26,4 +26,20 @@ export class Linker<Nucleobase> {
   [Symbol.iterator]() {
     return this.#bases.values();
   }
+
+  get firstBase(): Nucleobase {
+    if (this.#bases.length < 1) {
+      throw new Error('This linker has no bases.');
+    }
+
+    return this.#bases[0];
+  }
+
+  get lastBase(): Nucleobase {
+    if (this.#bases.length < 1) {
+      throw new Error('This linker has no bases.');
+    }
+
+    return this.#bases[this.#bases.length - 1];
+  }
 }
