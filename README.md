@@ -50,6 +50,31 @@ bp1[0] === bp2[0]; // true
 bp1[1] === bp2[1]; // true
 ```
 
+## `class Linker`
+
+Represents the connection between two consecutive stem sides.
+
+Is composed of the last base of the preceding stem side,
+the unpaired bases between the two stem sides,
+and the first base of the following stem side.
+
+A hairpin loop is an example of a linker.
+
+Between every pair of neighboring stems there is a linker.
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'123456'].map(() => ({}));
+
+var linker = new Linker(bases);
+
+[...linker].length; // 6
+
+// linkers must have at least two bases
+new Linker([]); // throws
+new Linker([bases[0]]); // throws
+```
+
 ## `class RadializableStructure`
 
 A structure amenable to radializing layout drawing algorithms.
