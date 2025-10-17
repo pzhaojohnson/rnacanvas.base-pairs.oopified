@@ -27,6 +27,13 @@ export class Linker<Nucleobase> {
     return this.#bases.values();
   }
 
+  /**
+   * All bases in the linker.
+   */
+  get bases(): Iterable<Nucleobase> {
+    return this.#bases.values();
+  }
+
   get firstBase(): Nucleobase {
     if (this.#bases.length < 1) {
       throw new Error('This linker has no bases.');

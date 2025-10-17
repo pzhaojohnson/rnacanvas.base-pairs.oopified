@@ -12,6 +12,16 @@ describe('`class Linker`', () => {
     expect(() => new Linker([bases[0]])).toThrow();
   });
 
+  test('`get bases()`', () => {
+    var bases = [...'123456'].map(() => new NucleobaseMock());
+
+    var linker = new Linker(bases);
+    expect([...linker.bases]).toStrictEqual(bases);
+
+    var linker = new Linker(bases.slice(2, 4));
+    expect([...linker.bases]).toStrictEqual(bases.slice(2, 4));
+  });
+
   test('`get firstBase()`', () => {
     var bases = [...'123456'].map(() => new NucleobaseMock());
 
