@@ -31,6 +31,21 @@ describe('`class Linker`', () => {
     var linker = new Linker(bases.slice(2, 4));
     expect(linker.lastBase).toBe(bases[3]);
   });
+
+  test('`get unpairedBases()`', () => {
+    var bases = [...'123456'].map(() => new NucleobaseMock());
+
+    var linker = new Linker(bases);
+    expect([...linker.unpairedBases]).toStrictEqual(bases.slice(1, 5));
+
+    // zero unpaired bases
+    var linker = new Linker(bases.slice(0, 2));
+    expect([...linker.unpairedBases]).toStrictEqual([]);
+
+    // one unpaired base
+    var linker = new Linker(bases.slice(3, 6));
+    expect([...linker.unpairedBases]).toStrictEqual([bases[4]]);
+  });
 });
 
 class NucleobaseMock {

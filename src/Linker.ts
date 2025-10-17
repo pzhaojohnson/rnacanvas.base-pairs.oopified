@@ -42,4 +42,11 @@ export class Linker<Nucleobase> {
 
     return this.#bases[this.#bases.length - 1];
   }
+
+  /**
+   * The unpaired bases in the linker.
+   */
+  get unpairedBases(): Iterable<Nucleobase> {
+    return this.#bases.slice(1, -1);
+  }
 }
