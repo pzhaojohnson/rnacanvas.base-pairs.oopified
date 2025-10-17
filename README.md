@@ -89,7 +89,7 @@ var linker = new Linker(bases);
 linker.firstBase; // bases[0]
 ```
 
-### `lastBase()`
+### `get lastBase()`
 
 The last base in the linker
 (i.e., the first base of the following stem side).
@@ -101,6 +101,25 @@ var bases = [...'123456'].map(() => ({}));
 var linker = new Linker(bases);
 
 linker.lastBase; // bases[5]
+```
+
+### `get unpairedBases()`
+
+The unpaired bases in the linker
+(i.e., all bases between the first and last bases).
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'123456'].map(() => ({}));
+
+var linker = new Linker(bases);
+
+[...linker.unpairedBases]; // bases.slice(1, 5)
+
+// a linker with no unpaired bases
+var linker = new Linker(bases.slice(0, 2));
+
+[...linker.unpairedBases]; // []
 ```
 
 ## `class RadializableStructure`
