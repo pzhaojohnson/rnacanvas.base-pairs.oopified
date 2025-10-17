@@ -75,6 +75,34 @@ new Linker([]); // throws
 new Linker([bases[0]]); // throws
 ```
 
+### `get firstBase()`
+
+The first base in the linker
+(i.e., the last base of the preceding stem side).
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'123456'].map(() => ({}));
+
+var linker = new Linker(bases);
+
+linker.firstBase; // bases[0]
+```
+
+### `lastBase()`
+
+The last base in the linker
+(i.e., the first base of the following stem side).
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'123456'].map(() => ({}));
+
+var linker = new Linker(bases);
+
+linker.lastBase; // bases[5]
+```
+
 ## `class RadializableStructure`
 
 A structure amenable to radializing layout drawing algorithms.
