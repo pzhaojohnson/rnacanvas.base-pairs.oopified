@@ -75,6 +75,22 @@ new Linker([]); // throws
 new Linker([bases[0]]); // throws
 ```
 
+### `get bases()`
+
+All bases in the linker.
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'123456'].map(() => ({}));
+
+var linker = new Linker(bases);
+
+[...linker.bases].length; // 6
+
+// is synonymous to iterating over the linker itself
+[...linker].length; // 6
+```
+
 ### `get firstBase()`
 
 The first base in the linker
