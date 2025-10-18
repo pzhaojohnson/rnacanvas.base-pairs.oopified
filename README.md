@@ -518,6 +518,30 @@ var structure = new RadializableStructure(bases, basePairs);
 [...structure.stems][1].bottomBasePair[1]; // bases[14]
 ```
 
+### `get linkers()`
+
+All linkers in the structure.
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'123456789012345678901234'].map(() => ({}));
+
+var basePairs = [...parseDotBracket(bases, '.(((....(((.....))).))).')];
+
+var structure = new RadializableStructure(bases, basePairs);
+
+[...structure.linkers].length; // 3
+
+[...structure.linkers][0].firstBase; // bases[3]
+[...structure.linkers][0].lastBase; // bases[8]
+
+[...structure.linkers][1].firstBase; // bases[10]
+[...structure.linkers][1].lastBase; // bases[16]
+
+[...structure.linkers][2].firstBase; // bases[18]
+[...structure.linkers][2].lastBase; // bases[20]
+```
+
 ### `spannedBases()`
 
 Returns the subsequence between the two bases of a base-pair
