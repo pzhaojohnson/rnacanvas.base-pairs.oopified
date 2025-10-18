@@ -34,6 +34,13 @@ export class Linker<Nucleobase> {
     return this.#bases.values();
   }
 
+  /**
+   * The number of bases in the linker.
+   */
+  get numBases(): number {
+    return this.#bases.length;
+  }
+
   get firstBase(): Nucleobase {
     if (this.#bases.length < 1) {
       throw new Error('This linker has no bases.');
@@ -55,5 +62,12 @@ export class Linker<Nucleobase> {
    */
   get unpairedBases(): Iterable<Nucleobase> {
     return this.#bases.slice(1, -1);
+  }
+
+  /**
+   * The number of unpaired bases in the linker.
+   */
+  get numUnpairedBases(): number {
+    return this.numBases - 2;
   }
 }

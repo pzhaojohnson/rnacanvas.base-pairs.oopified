@@ -22,6 +22,16 @@ describe('`class Linker`', () => {
     expect([...linker.bases]).toStrictEqual(bases.slice(2, 4));
   });
 
+  test('`get numBases()`', () => {
+    var bases = [...'12345678'].map(() => new NucleobaseMock());
+
+    var linker = new Linker(bases);
+    expect(linker.numBases).toBe(8);
+
+    var linker = new Linker(bases.slice(0, 2));
+    expect(linker.numBases).toBe(2);
+  });
+
   test('`get firstBase()`', () => {
     var bases = [...'123456'].map(() => new NucleobaseMock());
 
@@ -55,6 +65,16 @@ describe('`class Linker`', () => {
     // one unpaired base
     var linker = new Linker(bases.slice(3, 6));
     expect([...linker.unpairedBases]).toStrictEqual([bases[4]]);
+  });
+
+  test('get numUnpairedBases()', () => {
+    var bases = [...'123456789'].map(() => new NucleobaseMock());
+
+    var linker = new Linker(bases);
+    expect(linker.numUnpairedBases).toBe(7);
+
+    var linker = new Linker(bases.slice(3, 5));
+    expect(linker.numUnpairedBases).toBe(0);
   });
 });
 
