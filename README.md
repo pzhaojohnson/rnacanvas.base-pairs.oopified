@@ -591,14 +591,18 @@ var basePairs = [...parseDotBracket(bases, '.....(((.....)))..')];
 var structure = new RadializableStructure(bases, basePairs);
 
 [...structure.danglingBases5]; // bases.slice(0, 5);
+```
 
+```javascript
 // no 5' dangling bases
 var basePairs = [...parseDotBracket(bases, '(((.....)))...')];
 
 var structure = new RadializableStructure(bases, basePairs);
 
 [...structure.danglingBases5]; // []
+```
 
+```javascript
 // a structure with no base-pairs
 var structure = new RadializableStructure(bases, []);
 
@@ -619,14 +623,18 @@ var basePairs = [...parseDotBracket(bases, '...(((.....)))....')];
 var structure = new RadializableStructure(bases, basePairs);
 
 [...structure.danglingBases3]; // bases.slice(14, 18);
+```
 
+```javascript
 // no 3' dangling bases
 var basePairs = [...parseDotBracket(bases, '....((((......))))')];
 
 var structure = new RadializableStructure(bases, basePairs);
 
 [...structure.danglingBases3]; // []
+```
 
+```javascript
 // a structure with no base-pairs
 var structure = new RadializableStructure(bases, []);
 
