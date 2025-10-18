@@ -348,6 +348,50 @@ describe('`class RadializableStructure`', () => {
     expect([...structure.linkers]).toStrictEqual([]);
   });
 
+  test('`get danglingBases5()`', () => {
+    var bases = [...'123456789012345678901234567890'].map(() => new NucleobaseMock());
+
+    var basePairs = [...parseDotBracket(bases, '.....(((.....(((.....)))..))).')];
+
+    var structure = new RadializableStructure(bases, basePairs);
+
+    expect([...structure.danglingBases5]).toStrictEqual(bases.slice(0, 5));
+
+    // zero 5' dangling bases
+    var basePairs = [...parseDotBracket(bases, '(((......)))....')];
+
+    var structure = new RadializableStructure(bases, basePairs);
+
+    expect([...structure.danglingBases5]).toStrictEqual([]);
+
+    // a structure with no base-pairs
+    var structure = new RadializableStructure(bases, []);
+
+    expect([...structure.danglingBases5]).toStrictEqual([]);
+  });
+
+  test('`get danglingBases3()`', () => {
+    var bases = [...'123456789012345678901234567890'].map(() => new NucleobaseMock());
+
+    var basePairs = [...parseDotBracket(bases, '..((((.....((.....))..))))....')];
+
+    var structure = new RadializableStructure(bases, basePairs);
+
+    expect([...structure.danglingBases3]).toStrictEqual(bases.slice(26, 30));
+
+    // zero 3' dangling bases
+    var basePairs = [...parseDotBracket(bases, '......((((.....((.....))..))))')];
+
+    var structure = new RadializableStructure(bases, basePairs);
+
+    expect([...structure.danglingBases3]).toStrictEqual([]);
+
+    // a structure with no base-pairs
+    var structure = new RadializableStructure(bases, []);
+
+    expect([...structure.danglingBases3]).toStrictEqual([]);
+  });
+
   test('`spannedBases()`', () => {
     let bases = [...'1234567890123456'].map(() => new NucleobaseMock());
 

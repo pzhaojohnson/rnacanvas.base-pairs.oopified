@@ -12,6 +12,8 @@ import { Linkers } from '@rnacanvas/base-pairs';
 
 import { mountainPlotTraversal } from '@rnacanvas/base-pairs';
 
+import { max } from '@rnacanvas/math';
+
 export class RadializableStructure<Nucleobase> {
   #bases;
 
@@ -231,6 +233,40 @@ export class RadializableStructure<Nucleobase> {
    */
   get linkers(): Iterable<Linker<Nucleobase>> {
     return [...this.#linkers];
+  }
+
+  /**
+   * The 5' dangling bases
+   * (i.e., the bases preceding the first paired base in the structure).
+   *
+   * Are returned in sequence order.
+   */
+  get danglingBases5(): Iterable<Nucleobase> {
+    let firstPairedBase = this.#bases.find(b => this.isPaired(b));
+
+    if (!firstPairedBase) {
+      return [];
+    } else {
+      return this.#bases.slice(0, this.indexOf(firstPairedBase));
+    }
+  }
+
+  /**
+   * The 3' dangling bases
+   * (i.e., the bases following the last paired base in the structure).
+   *
+   * Are returned in sequence order.
+   */
+  get danglingBases3(): Iterable<Nucleobase> {
+    let pairedBases = this.#bases.filter(b => this.isPaired(b));
+
+    if (pairedBases.length == 0) {
+      return [];
+    }
+
+    let pairedIndices = pairedBases.map(b => this.indexOf(b));
+
+    return this.#bases.slice(max(pairedIndices) + 1);
   }
 
   /**
