@@ -316,7 +316,7 @@ describe('`class RadializableStructure`', () => {
 
     expect([...structure.stems].length).toBe(0);
 
-    let basePairs = parseDotBracket(bases, '..(((...((((.....))..))....)))..');
+    let basePairs = [...parseDotBracket(bases, '..(((...((((.....))..))....)))..')];
 
     var structure = new RadializableStructure(bases, basePairs);
 
@@ -325,6 +325,27 @@ describe('`class RadializableStructure`', () => {
     expect([...[...structure.stems][0].bottomBasePair]).toStrictEqual([bases[2], bases[29]]);
     expect([...[...structure.stems][1].bottomBasePair]).toStrictEqual([bases[8], bases[22]]);
     expect([...[...structure.stems][2].bottomBasePair]).toStrictEqual([bases[10], bases[18]]);
+  });
+
+  test('`get linkers()`', () => {
+    var bases = [...'1234567890123456789012345'].map(() => new NucleobaseMock());
+
+    var basePairs = [...parseDotBracket(bases, '...(((...(((....)))..))).')];
+
+    var structure = new RadializableStructure(bases, basePairs);
+
+    expect([...structure.linkers][0].firstBase).toBe(bases[5]);
+
+    expect([...structure.linkers].map(li => [li.firstBase, li.lastBase])).toStrictEqual([
+      [bases[5], bases[9]],
+      [bases[11], bases[16]],
+      [bases[18], bases[21]],
+    ]);
+
+    // no linkers
+    var structure = new RadializableStructure(bases, []);
+
+    expect([...structure.linkers]).toStrictEqual([]);
   });
 
   test('`spannedBases()`', () => {
@@ -439,7 +460,7 @@ describe('`class RadializableStructure`', () => {
   test('`mountainPlotHeight()`', () => {
     let bases = [...'1234567890123456'].map(() => new NucleobaseMock());
 
-    let basePairs = parseDotBracket(bases, '..(((....))).');
+    let basePairs = [...parseDotBracket(bases, '..(((....))).')];
 
     let structure = new RadializableStructure(bases, basePairs);
 
