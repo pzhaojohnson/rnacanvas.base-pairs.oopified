@@ -577,6 +577,62 @@ var structure = new RadializableStructure(bases, basePairs);
 [...structure.linkers][2].lastBase; // bases[20]
 ```
 
+### `get danglingBases5()`
+
+The 5' dangling bases
+(i.e., the bases preceding the first paired base in the structure).
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'123456789012345678'].map(() => ({}));
+
+var basePairs = [...parseDotBracket(bases, '.....(((.....)))..')];
+
+var structure = new RadializableStructure(bases, basePairs);
+
+[...structure.danglingBases5]; // bases.slice(0, 5);
+
+// no 5' dangling bases
+var basePairs = [...parseDotBracket(bases, '(((.....)))...')];
+
+var structure = new RadializableStructure(bases, basePairs);
+
+[...structure.danglingBases5]; // []
+
+// a structure with no base-pairs
+var structure = new RadializableStructure(bases, []);
+
+[...structure.danglingBases5]; // []
+```
+
+### `get danglingBases3()`
+
+The 3' dangling bases
+(i.e., the bases following the last paired base in the structure).
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'123456789012345678'].map(() => ({}));
+
+var basePairs = [...parseDotBracket(bases, '...(((.....)))....')];
+
+var structure = new RadializableStructure(bases, basePairs);
+
+[...structure.danglingBases3]; // bases.slice(14, 18);
+
+// no 3' dangling bases
+var basePairs = [...parseDotBracket(bases, '....((((......))))')];
+
+var structure = new RadializableStructure(bases, basePairs);
+
+[...structure.danglingBases3]; // []
+
+// a structure with no base-pairs
+var structure = new RadializableStructure(bases, []);
+
+[...structure.danglingBases3]; // []
+```
+
 ### `spannedBases()`
 
 Returns the subsequence between the two bases of a base-pair
