@@ -91,6 +91,19 @@ var linker = new Linker(bases);
 [...linker].length; // 6
 ```
 
+### `get numBases()`
+
+The number of bases in the linker.
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'123456'].map(() => ({}));
+
+var linker = new Linker(bases);
+
+linker.numBases; // 6
+```
+
 ### `get firstBase()`
 
 The first base in the linker
@@ -136,6 +149,28 @@ var linker = new Linker(bases);
 var linker = new Linker(bases.slice(0, 2));
 
 [...linker.unpairedBases]; // []
+```
+
+### `get numUnpairedBases()`
+
+The number of unpaired bases in the linker.
+
+(Is always two less than the total number of bases in the linker.)
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'123456'].map(() => ({}));
+
+var linker = new Linker(bases);
+
+linker.numBases; // 6
+linker.numUnpairedBases; // 4
+
+// no unpaired bases
+var linker = new Linker(bases.slice(0, 2));
+
+linker.numBases; // 2
+linker.numUnpairedBases; // 0
 ```
 
 ## `class RadializableStructure`
