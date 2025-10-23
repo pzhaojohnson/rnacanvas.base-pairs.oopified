@@ -222,6 +222,36 @@ export class RadializableStructure<Nucleobase> {
   }
 
   /**
+   * The first paired base in the structure.
+   *
+   * Throws if there are no paired bases in the structure.
+   */
+  get firstPairedBase(): Nucleobase | never {
+    let b = this.#bases.find(b => this.isPaired(b));
+
+    if (!b) {
+      throw new Error('This structure does not have any paired bases.');
+    }
+
+    return b;
+  }
+
+  /**
+   * The last paired base in the structure.
+   *
+   * Throws if there are no paired bases in the structure.
+   */
+  get lastPairedBase(): Nucleobase | never {
+    let pairedBases = this.#bases.filter(b => this.isPaired(b));
+
+    if (pairedBases.length == 0) {
+      throw new Error('This structure does not have any paired bases.');
+    }
+
+    return pairedBases[pairedBases.length - 1];
+  }
+
+  /**
    * All stems in the structure.
    */
   get stems(): Iterable<Stem<Nucleobase>> {

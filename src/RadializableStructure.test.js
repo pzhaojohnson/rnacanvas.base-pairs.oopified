@@ -308,6 +308,36 @@ describe('`class RadializableStructure`', () => {
     expect(() => structure.partnerOf(new NucleobaseMock())).toThrow();
   });
 
+  test('`get firstPairedBase()`', () => {
+    var bases = [...'123456789012345678901234567890'].map(() => new NucleobaseMock());
+
+    // a structure with no paired bases
+    var structure = new RadializableStructure(bases, []);
+
+    expect(() => structure.firstPairedBase).toThrow();
+
+    var basePairs = [...parseDotBracket(bases, '....(((...((...))..)))....')];
+
+    var structure = new RadializableStructure(bases, basePairs);
+
+    expect(structure.firstPairedBase).toBe(bases[4]);
+  });
+
+  test('`get lastPairedBase()`', () => {
+    var bases = [...'123456789012345678901234567890'].map(() => new NucleobaseMock());
+
+    // a structure with no paired bases
+    var structure = new RadializableStructure(bases, []);
+
+    expect(() => structure.lastPairedBase).toThrow();
+
+    var basePairs = [...parseDotBracket(bases, '....(((...((...))..)))...')];
+
+    var structure = new RadializableStructure(bases, basePairs);
+
+    expect(structure.lastPairedBase).toBe(bases[21]);
+  });
+
   test('`get stems()`', () => {
     let bases = [...'12345678901234567890123456789012'].map(() => new NucleobaseMock());
 
