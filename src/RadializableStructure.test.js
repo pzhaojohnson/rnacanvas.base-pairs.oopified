@@ -327,6 +327,18 @@ describe('`class RadializableStructure`', () => {
     expect([...[...structure.stems][2].bottomBasePair]).toStrictEqual([bases[10], bases[18]]);
   });
 
+  test('`get numStems()`', () => {
+    var bases = [...'12345678901234567890123456789012345'].map(() => new NucleobaseMock());
+
+    var basePairs = [...parseDotBracket(bases, '..((((.....))))..((...(((...))).)).')];
+
+    var structure = new RadializableStructure(bases, basePairs);
+    expect(structure.numStems).toBe(3);
+
+    var structure = new RadializableStructure(bases, []);
+    expect(structure.numStems).toBe(0);
+  });
+
   test('`get linkers()`', () => {
     var bases = [...'1234567890123456789012345'].map(() => new NucleobaseMock());
 
@@ -346,6 +358,18 @@ describe('`class RadializableStructure`', () => {
     var structure = new RadializableStructure(bases, []);
 
     expect([...structure.linkers]).toStrictEqual([]);
+  });
+
+  test('`get numLinkers()`', () => {
+    var bases = [...'12345678901234567890123456789012345'].map(() => new NucleobaseMock());
+
+    var basePairs = [...parseDotBracket(bases, '..((((.....))))..((...(((...))).)).')];
+
+    var structure = new RadializableStructure(bases, basePairs);
+    expect(structure.numLinkers).toBe(5);
+
+    var structure = new RadializableStructure(bases, []);
+    expect(structure.numLinkers).toBe(0);
   });
 
   test('`get danglingBases5()`', () => {

@@ -229,10 +229,24 @@ export class RadializableStructure<Nucleobase> {
   }
 
   /**
+   * The number of stems in the structure.
+   */
+  get numStems(): number {
+    return this.#stems.length;
+  }
+
+  /**
    * All linkers in the structure.
    */
   get linkers(): Iterable<Linker<Nucleobase>> {
     return [...this.#linkers];
+  }
+
+  /**
+   * The number of linkers in the structure.
+   */
+  get numLinkers(): number {
+    return this.#linkers.length;
   }
 
   /**
