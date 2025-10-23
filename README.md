@@ -553,6 +553,27 @@ var structure = new RadializableStructure(bases, basePairs);
 [...structure.stems][1].bottomBasePair[1]; // bases[14]
 ```
 
+### `get numStems()`
+
+The number of stems in the structure.
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'123456789012345678901234567890'].map(() => ({}));
+
+var basePairs = [];
+
+var structure = new RadializableStructure(bases, basePairs);
+
+structure.numStems; // 0
+
+var basePairs = [...parseDotBracket(bases, '..(((....))).((..(((...))).)).')];
+
+var structure = new RadializableStructure(bases, basePairs);
+
+structure.numStems; // 3
+```
+
 ### `get linkers()`
 
 All linkers in the structure.
@@ -575,6 +596,27 @@ var structure = new RadializableStructure(bases, basePairs);
 
 [...structure.linkers][2].firstBase; // bases[18]
 [...structure.linkers][2].lastBase; // bases[20]
+```
+
+### `get numLinkers()`
+
+The number of linkers in the structure.
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'123456789012345678901234567890'].map(() => ({}));
+
+var basePairs = [];
+
+var structure = new RadializableStructure(bases, basePairs);
+
+structure.numLinkers; // 0
+
+var basePairs = [...parseDotBracket(bases, '..(((....))).((..(((...))).)).')];
+
+var structure = new RadializableStructure(bases, basePairs);
+
+structure.numLinkers; // 5
 ```
 
 ### `get danglingBases5()`
