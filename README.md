@@ -518,6 +518,50 @@ structure.partnerOf(bases[0]); // throws
 structure.partnerOf({}); // throws
 ```
 
+### `get firstPairedBase()`
+
+The first paired base in the structure.
+
+Throws if the structure does not have any paired bases.
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'12345678901234'].map(() => ({}));
+
+var basePairs = [...parseDotBracket(bases, '..(((...)))...')];
+
+var structure = new RadializableStructure(bases, basePairs);
+
+structure.firstPairedBase; // bases[2]
+
+// a structure without any paired bases
+var structure = new RadializableStructure(bases, []);
+
+structure.firstPairedBase; // throws
+```
+
+### `get lastPairedBase()`
+
+The last paired base in the structure.
+
+Throws if the structure does not have any paired bases.
+
+```javascript
+// an array of nucleobase objects
+var bases = [...'12345678901234'].map(() => ({}));
+
+var basePairs = [...parseDotBracket(bases, '..(((...)))...')];
+
+var structure = new RadializableStructure(bases, basePairs);
+
+structure.lastPairedBase; // bases[10]
+
+// a structure without any paired bases
+var structure = new RadializableStructure(bases, []);
+
+structure.lastPairedBase; // throws
+```
+
 ### `get stems()`
 
 All stems in the structure.
