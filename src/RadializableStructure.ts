@@ -313,6 +313,50 @@ export class RadializableStructure<Nucleobase> {
     return this.#bases.slice(max(pairedIndices) + 1);
   }
 
+  get outermostLoop() {
+    let bases: Iterable<Nucleobase> = this.#bases.filter(b => this.mountainPlotHeight(b) == 0);
+
+    let stems: Iterable<Stem<Nucleobase>> = this.#stems.filter(st => this.mountainPlotHeight(st.bottomBasePair[0]) == 0);
+
+    let linkers: Iterable<Linker<Nucleobase>> = this.#linkers.filter(li => this.mountainPlotHeight(li.firstBase) == 0);
+
+    return {
+      /**
+       * All bases in the outermost loop.
+       */
+      bases,
+
+      /**
+       * All stems in the outermost loop.
+       */
+      stems,
+
+      /**
+       * All stems emanating from the outermost loop.
+       *
+       * (An alias for all stems in the outermost loop.)
+       */
+      emanatingStems: stems,
+
+      /**
+       * All linkers in the outermost loop.
+       */
+      linkers,
+
+      /**
+       * 5' dangling bases in the outermost loop.
+       */
+      danglingBases5: this.danglingBases5,
+
+      /**
+       * 3' dangling bases in the outermost loop.
+       */
+      danglingBases3: this.danglingBases3,
+
+      isHairpinLoop: () => false,
+    };
+  }
+
   /**
    * Returns the subsequence of bases between the two bases of a base-pair
    * (not including the two bases of the base-pair).

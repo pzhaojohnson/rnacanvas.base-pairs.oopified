@@ -446,6 +446,45 @@ describe('`class RadializableStructure`', () => {
     expect([...structure.danglingBases3]).toStrictEqual([]);
   });
 
+  test('`get outermostLoop()`', () => {
+    var bases = (new Array(54)).fill().map(() => new NucleobaseMock());
+
+    var basePairs = [...parseDotBracket(bases, '....(((....))).....((....((...))....((.......))...))..')];
+
+    var structure = new RadializableStructure(bases, basePairs);
+
+    var outermostLoop = structure.outermostLoop;
+
+    expect([...outermostLoop.bases]).toStrictEqual([...bases.slice(0, 5), ...bases.slice(13, 20), ...bases.slice(51)]);
+
+    expect([...outermostLoop.stems].length).toBe(2);
+    expect([...[...outermostLoop.stems][0].bottomBasePair]).toStrictEqual([bases[4], bases[13]]);
+    expect([...[...outermostLoop.stems][1].bottomBasePair]).toStrictEqual([bases[19], bases[51]]);
+
+    expect([...outermostLoop.emanatingStems]).toStrictEqual([...outermostLoop.stems]);
+
+    expect([...structure.outermostLoop.linkers].length).toBe(1);
+    expect([...[...structure.outermostLoop.linkers][0]]).toStrictEqual(bases.slice(13, 20));
+
+    expect([...outermostLoop.danglingBases5]).toStrictEqual(bases.slice(0, 4));
+    expect([...outermostLoop.danglingBases3]).toStrictEqual(bases.slice(52));
+
+    expect(outermostLoop.isHairpinLoop()).toBe(false);
+
+    // a structure without any base-pairs
+    var structure = new RadializableStructure(bases, []);
+
+    expect([...structure.outermostLoop.bases]).toStrictEqual(bases);
+
+    expect([...structure.outermostLoop.stems].length).toBe(0);
+    expect([...structure.outermostLoop.linkers].length).toBe(0);
+
+    expect([...structure.outermostLoop.danglingBases5].length).toBe(0);
+    expect([...structure.outermostLoop.danglingBases3].length).toBe(0);
+
+    expect(structure.outermostLoop.isHairpinLoop()).toBe(false);
+  });
+
   test('`spannedBases()`', () => {
     let bases = [...'1234567890123456'].map(() => new NucleobaseMock());
 
