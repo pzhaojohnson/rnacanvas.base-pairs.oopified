@@ -727,6 +727,48 @@ var structure = new RadializableStructure(bases, []);
 [...structure.danglingBases3]; // []
 ```
 
+### `get outermostLoop()`
+
+Returns an object representing the outermost loop of the structure,
+which is the loop containing the 5' and 3' termini of the structure.
+
+```javascript
+// an array of nucleobase objects
+var bases = (new Array(36)).fill().map(() => ({}));
+
+var basePairs = [...parseDotBracket(bases, '..(((....)))..(((...((....))..)))...')];
+
+var structure = new RadializableStructure(bases, basePairs);
+
+var outermostLoop = structure.outermostLoop;
+
+// all bases in the outermost loop
+[...outermostLoop.bases]; // [...bases.slice(0, 3), ...bases.slice(11, 15), ...bases.slice(32, 36)]
+
+// all stems in the outermost loop
+[...outermostLoop.stems].length; // 2
+[...[...outerostLoop.stems][0].bottomBasePair]; // [bases[2], bases[11]]
+[...[...outerostLoop.stems][1].bottomBasePair]; // [bases[14], bases[32]]
+
+// all stems emanating from the outermost loop
+// (an alias for all stems in the outermost loop)
+[...outermostLoop.emanatingStems].length; // 2
+
+// all linkers in the outermost loop
+[...outermostLoop.linkers].length; // 1
+[...[...outermostLoop.linkers][0].bases]; // bases.slice(11, 15)
+
+// 5' dangling bases
+[...outermostLoop.danglingBases5]; // bases.slice(0, 2)
+
+// 3' dangling bases
+[...outermostLoop.danglingBases3]; // bases.slice(33, 36)
+
+// always returns false
+// (the outermost loop can never be a hairpin loop)
+outermostLoop.isHairpinLoop(); // false
+```
+
 ### `spannedBases()`
 
 Returns the subsequence between the two bases of a base-pair
