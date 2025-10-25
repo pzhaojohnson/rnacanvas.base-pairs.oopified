@@ -358,6 +358,68 @@ export class RadializableStructure<Nucleobase> {
   }
 
   /**
+   * Returns an object representing the loop closed by the specified base-pair.
+   *
+   * It is undefined what exactly happens when the specified base-pair does not actually close a loop
+   * (e.g., is in the middle of a stem).
+   */
+  #closedLoop(closingBasePair: BasePair<Nucleobase>): ClosedLoop<Nucleobase> {
+    let closingHeight = this.mountainPlotHeight(closingBasePair[0]);
+
+    // note that the closing base-pair might be given out of order
+    // (e.g., downstream partner first)
+    let closingStem = this.#stems.find(st => [...closingBasePair].includes(st.topBasePair[0]));
+
+    if (!closingStem) {
+      throw new Error('Unable to determine closing stem of closed loop.');
+    }
+
+    let bases = [...this.spannedBases(closingBasePair)];
+
+    bases = bases.filter(b => this.mountainPlotHeight(b) == closingHeight + 1);
+
+    // the bases in the top base-pair of the closing stem are guaranteed to be in order
+    // (e.g., upstream partner first)
+    bases.unshift(closingStem.topBasePair[0]);
+    bases.push(closingStem.topBasePair[1]);
+
+    let basesSet = new Set(bases);
+
+    let emanatingStems = this.#stems.filter(st => basesSet.has(st.bottomBasePair[0]));
+
+    // in case the closing stem for the loop has only one base-pair
+    emanatingStems = emanatingStems.filter(st => this.mountainPlotHeight(st.bottomBasePair[0]) == closingHeight + 1);
+
+    let linkers = this.#linkers.filter(li => basesSet.has(li.firstBase));
+
+    return {
+      bases,
+      closingStem,
+      closingBasePair,
+      emanatingStems,
+      linkers,
+
+      isHairpinLoop: () => emanatingStems.length == 0,
+    };
+  }
+
+  /**
+   * All closed loops in the structure.
+   */
+  get closedLoops(): Iterable<ClosedLoop<Nucleobase>> {
+    return this.#stems.map(st => this.#closedLoop(st.topBasePair));
+  }
+
+  /**
+   * All loops in the structure.
+   *
+   * (The outermost loop and all closed loops.)
+   */
+  get loops(): Iterable<OutermostLoop<Nucleobase> | ClosedLoop<Nucleobase>> {
+    return [this.outermostLoop, ...this.closedLoops];
+  }
+
+  /**
    * Returns the subsequence of bases between the two bases of a base-pair
    * (not including the two bases of the base-pair).
    *
@@ -431,3 +493,25 @@ export class RadializableStructure<Nucleobase> {
 }
 
 type BasePairTuple<Nucleobase> = [Nucleobase, Nucleobase];
+
+type OutermostLoop<Nucleobase> = InstanceType<typeof RadializableStructure<Nucleobase>>['outermostLoop'];
+
+type ClosedLoop<Nucleobase> = {
+  /**
+   * The bases in the loop.
+   */
+  readonly bases: Iterable<Nucleobase>;
+
+  readonly closingStem: Stem<Nucleobase>;
+
+  readonly closingBasePair: BasePair<Nucleobase>;
+
+  readonly emanatingStems: Iterable<Stem<Nucleobase>>;
+
+  /**
+   * All linkers in the loop.
+   */
+  readonly linkers: Iterable<Linker<Nucleobase>>;
+
+  isHairpinLoop(): boolean;
+};

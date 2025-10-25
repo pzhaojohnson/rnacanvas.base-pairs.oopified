@@ -485,6 +485,82 @@ describe('`class RadializableStructure`', () => {
     expect(structure.outermostLoop.isHairpinLoop()).toBe(false);
   });
 
+  test('`get closedLoops()`', () => {
+    var bases = (new Array(58)).fill().map(() => new NucleobaseMock());
+
+    var basePairs = [...parseDotBracket(bases, '..((((....))))....((....(((....))).(((((.....)))))...))...')];
+
+    var structure = new RadializableStructure(bases, basePairs);
+
+    var closedLoops = [...structure.closedLoops];
+    expect(closedLoops.length).toBe(4);
+
+    expect([...[...closedLoops][0].bases]).toStrictEqual(bases.slice(5, 11));
+    expect([...[...closedLoops][1].bases]).toStrictEqual([...bases.slice(19, 25), ...bases.slice(33, 36), ...bases.slice(49, 54)]);
+    expect([...[...closedLoops][2].bases]).toStrictEqual(bases.slice(26, 32));
+    expect([...[...closedLoops][3].bases]).toStrictEqual(bases.slice(39, 46));
+
+    expect([...closedLoops][0].closingStem.topBasePair[0]).toBe(bases[5]);
+    expect([...closedLoops][1].closingStem.topBasePair[0]).toBe(bases[19]);
+    expect([...closedLoops][2].closingStem.topBasePair[0]).toBe(bases[26]);
+    expect([...closedLoops][3].closingStem.topBasePair[0]).toBe(bases[39]);
+
+    expect([...closedLoops][0].closingBasePair[0]).toBe(bases[5]);
+    expect([...closedLoops][1].closingBasePair[0]).toBe(bases[19]);
+    expect([...closedLoops][2].closingBasePair[0]).toBe(bases[26]);
+    expect([...closedLoops][3].closingBasePair[0]).toBe(bases[39]);
+
+    expect([...[...closedLoops][0].emanatingStems]).toStrictEqual([]);
+    expect([...[...closedLoops][1].emanatingStems]).toStrictEqual([...structure.stems].slice(2, 4));
+    expect([...[...closedLoops][2].emanatingStems]).toStrictEqual([]);
+    expect([...[...closedLoops][3].emanatingStems]).toStrictEqual([]);
+
+    expect([...[...closedLoops][0].linkers]).toStrictEqual([...structure.linkers].slice(0, 1));
+    expect([...[...closedLoops][1].linkers]).toStrictEqual([2, 4, 6].map(i => [...structure.linkers][i]));
+    expect([...[...closedLoops][2].linkers]).toStrictEqual([...structure.linkers].slice(3, 4));
+    expect([...[...closedLoops][3].linkers]).toStrictEqual([...structure.linkers].slice(5, 6));
+
+    expect([...closedLoops][0].isHairpinLoop()).toBe(true);
+    expect([...closedLoops][1].isHairpinLoop()).toBe(false);
+    expect([...closedLoops][2].isHairpinLoop()).toBe(true);
+    expect([...closedLoops][3].isHairpinLoop()).toBe(true);
+
+    // a structure without any base-pairs
+    var structure = new RadializableStructure(bases, []);
+    expect([...structure.closedLoops].length).toBe(0);
+
+    // an empty structure
+    var structure = new RadializableStructure([], []);
+    expect([...structure.closedLoops].length).toBe(0);
+
+    // a structure with a stem that has only one base-pair
+    var structure = new RadializableStructure(bases, [...parseDotBracket(bases, '..(...((....))...).')]);
+
+    expect([...[...structure.closedLoops][0].emanatingStems].length).toBe(1);
+    expect([...[...structure.closedLoops][0].emanatingStems][0].bottomBasePair[0]).toBe(bases[6]);
+  });
+
+  test('`get loops()`', () => {
+    var bases = (new Array(37)).fill().map(() => new NucleobaseMock());
+
+    var basePairs = [...parseDotBracket(bases, '...(((....)))...((...(((.....))).))..')];
+
+    var structure = new RadializableStructure(bases, basePairs);
+
+    var loops = [...structure.loops];
+
+    expect(loops.length).toBe(4);
+    expect(JSON.stringify(loops)).toBe(JSON.stringify([structure.outermostLoop, ...structure.closedLoops]));
+
+    // a structure without any base-pairs
+    var structure = new RadializableStructure(bases, []);
+    expect(JSON.stringify([...structure.loops])).toBe(JSON.stringify([structure.outermostLoop]));
+
+    // an empty structure
+    var structure = new RadializableStructure([], []);
+    expect(JSON.stringify([...structure.loops])).toBe(JSON.stringify([structure.outermostLoop]));
+  });
+
   test('`spannedBases()`', () => {
     let bases = [...'1234567890123456'].map(() => new NucleobaseMock());
 
