@@ -769,6 +769,77 @@ var outermostLoop = structure.outermostLoop;
 outermostLoop.isHairpinLoop(); // false
 ```
 
+### `get closedLoops()`
+
+All loops in the structure that are closed by a stem.
+
+```javascript
+// an array of nucleobase objects
+var bases = (new Array(46)).fill().map(() => ({}));
+
+var basePairs = [...parseDotBracket(bases, '...((((....(((.....)))...((((......))))..)))).')];
+
+var structure = new RadializableStructure(bases, basePairs);
+
+var closedLoops = [...structure.closedLoops];
+
+closedLoops.length; // 3
+
+[...closedLoops[0].bases]; // [...bases.slice(6, 12), ...bases.slice(21, 26), ...bases.slice(38, 42)]
+[...closedLoops[1].bases]; // bases.slice(13, 20)
+[...closedLoops[2].bases]; // bases.slice(28, 36)
+
+[...closedLoops[0].closingStem.topBasePair]; // [bases[6], bases[41]]
+[...closedLoops[1].closingStem.topBasePair]; // [bases[13], bases[19]]
+[...closedLoops[2].closingStem.topBasePair]; // [bases[28], bases[35]]
+
+[...closedLoops[0].closingBasePair]; // [bases[6], bases[41]]
+[...closedLoops[1].closingBasePair]; // [bases[13], bases[19]]
+[...closedLoops[2].closingBasePair]; // [bases[28], bases[35]]
+
+[...closedLoops[0].emanatingStems].length; // 2
+
+[...[...closedLoops[0].emanatingStems][0].bottomBasePair]; // [bases[11], bases[21]]
+[...[...closedLoops[0].emanatingStems][1].bottomBasePair]; // [bases[25], bases[38]]
+
+[...closedLoops[1].emanatingStems].length; // 0
+[...closedLoops[2].emanatingStems].length; // 0
+
+[...closedLoops[0].linkers].length; // 3
+
+[...[...closedLoops[0].linkers][0].bases]; // bases.slice(6, 12)
+[...[...closedLoops[0].linkers][1].bases]; // bases.slice(21, 26)
+[...[...closedLoops[0].linkers][2].bases]; // bases.slice(38, 42)
+
+[...closedLoops[1].linkers].length; // 1
+[...closedLoops[2].linkers].length; // 1
+
+[...[...closedLoops[1].linkers][0].bases]; // bases.slice(13, 20)
+[...[...closedLoops[2].linkers][0].bases]; // bases.slice(28, 36)
+
+closedLoops[0].isHairpinLoops(); // false
+closedLoops[1].isHairpinLoops(); // true
+closedLoops[2].isHairpinLoops(); // true
+```
+
+### `get loops()`
+
+All loops in the structure
+(i.e., the outermost loop plus all closed loops).
+
+```javascript
+// an array of nucleobase objects
+var bases = (new Array(39)).fill().map(() => ({}));
+
+var basePairs = [...parseDotBracket(bases, '...(((((.....)))))..((...(((....))).)).')];
+
+var structure = new RadializableStructure(bases, basePairs);
+
+[...structure.loops]; // [structure.outermostLoop, ...structure.closedLoops]
+
+[...structure.loops].length; // 4
+```
+
 ### `spannedBases()`
 
 Returns the subsequence between the two bases of a base-pair
