@@ -94,15 +94,15 @@ describe('BasePair class', () => {
     expect(bp.equals([new NucleobaseMock(), new NucleobaseMock()])).toBe(false);
   });
 
-  test('`deepCopy()`', () => {
+  test('`duplicate()`', () => {
     let b1 = new NucleobaseMock();
     let b2 = new NucleobaseMock();
 
     let bp1 = new BasePair(b1, b2);
-    let bp2 = bp1.deepCopy();
+    let bp2 = bp1.duplicate();
 
-    expect(bp2.firstBase).toBe(b1);
-    expect(bp2.secondBase).toBe(b2);
+    expect(bp2[0]).toBe(b1);
+    expect(bp2[1]).toBe(b2);
 
     expect(bp2).not.toBe(bp1);
   });

@@ -52,8 +52,11 @@ export class BasePair<Nucleobase> {
     );
   }
 
-  deepCopy(): BasePair<Nucleobase> {
-    return new BasePair(this.firstBase, this.secondBase);
+  /**
+   * Returns a new base-pair object that is a duplicate of this base-pair.
+   */
+  duplicate(): BasePair<Nucleobase> {
+    return new BasePair(this[0], this[1]);
   }
 }
 
