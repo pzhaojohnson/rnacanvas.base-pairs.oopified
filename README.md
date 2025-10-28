@@ -34,6 +34,32 @@ basePair[1]; // the second base
 [...basePair];
 ```
 
+### `equals()`
+
+Returns true if the base-pair equals the specified base-pair
+(i.e., they both pair the same two bases).
+
+```javascript
+var base1 = {};
+var base2 = {};
+
+var bp = new BasePair(base1, base2);
+
+bp.equals(new BasePair(base1, base2)); // true
+
+bp.equals(new BasePair(base1, {})); // false
+bp.equals(new BasePair({}, base2)); // false
+
+// can also input a base-pair tuple
+bp.equals([base1, base2]); // true
+
+bp.equals([base1, {}]); // false
+bp.equals([{}, base2]); // false
+
+// order doesn't matter
+bp.equals([base2, base1]); // true
+```
+
 ### `deepCopy()`
 
 Returns a new base-pair object that pairs the same two bases (in the same order).
