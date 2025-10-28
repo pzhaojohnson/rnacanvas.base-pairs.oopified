@@ -434,6 +434,14 @@ export class RadializableStructure<Nucleobase> {
   }
 
   /**
+   * Returns the number of bases spanned by the base-pair
+   * (not including the bases in the base-pair).
+   */
+  numSpannedBases(bp: BasePair<Nucleobase> | [Nucleobase, Nucleobase]): number {
+    return [...this.spannedBases(bp)].length;
+  }
+
+  /**
    * Returns the sequence of bases joined by a base-pair
    * (including the two bases in the base-pair).
    *
@@ -456,6 +464,14 @@ export class RadializableStructure<Nucleobase> {
     } else {
       return [...this.#bases.slice(0, minIndex + 1), ...this.#bases.slice(maxIndex)];
     }
+  }
+
+  /**
+   * Returns the number of bases joined by the base-pair,
+   * including the bases in the base-pair.
+   */
+  numJoinedBases(bp: BasePair<Nucleobase> | [Nucleobase, Nucleobase]): number {
+    return [...this.joinedBases(bp)].length;
   }
 
   /**

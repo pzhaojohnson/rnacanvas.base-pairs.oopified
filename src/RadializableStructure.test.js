@@ -591,6 +591,17 @@ describe('`class RadializableStructure`', () => {
     expect([...structure.spannedBases(bp)]).toStrictEqual(bases.slice(4, 10 + 1));
   });
 
+  test('`numSpannedBases()`', () => {
+    var bases = (new Array(10)).fill().map(() => new NucleobaseMock());
+
+    var structure = new RadializableStructure(bases, []);
+
+    expect(structure.numSpannedBases([bases[2], bases[8]])).toBe(5);
+    expect(structure.numSpannedBases([bases[2], bases[4]])).toBe(1);
+    expect(structure.numSpannedBases([bases[2], bases[3]])).toBe(0);
+    expect(structure.numSpannedBases([bases[2], bases[2]])).toBe(0);
+  });
+
   test('`joinedBases()`', () => {
     var bases = [...'12345678901234567890'].map(() => new NucleobaseMock());
 
@@ -627,6 +638,17 @@ describe('`class RadializableStructure`', () => {
     // a self-pair and a sequence length of 1
     var structure = new RadializableStructure([b], []);
     expect([...structure.joinedBases([b, b])]).toStrictEqual([b]);
+  });
+
+  test('`numJoinedBases()`', () => {
+    var bases = (new Array(10)).fill().map(() => new NucleobaseMock());
+
+    var structure = new RadializableStructure(bases, []);
+
+    expect(structure.numJoinedBases([bases[4], bases[7]])).toBe(8);
+    expect(structure.numJoinedBases([bases[0], bases[7]])).toBe(4);
+    expect(structure.numJoinedBases([bases[4], bases[9]])).toBe(6);
+    expect(structure.numJoinedBases([bases[0], bases[9]])).toBe(2);
   });
 
   test('`substructure()`', () => {
