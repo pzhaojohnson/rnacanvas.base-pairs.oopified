@@ -60,7 +60,7 @@ bp.equals([{}, base2]); // false
 bp.equals([base2, base1]); // true
 ```
 
-### `deepCopy()`
+### `duplicate()`
 
 Returns a new base-pair object that pairs the same two bases (in the same order).
 
@@ -70,10 +70,12 @@ var base2 = {};
 
 var bp1 = new BasePair(base1, base2);
 
-var bp2 = bp1.deepCopy();
+var bp2 = bp1.duplicate();
 
 bp1[0] === bp2[0]; // true
 bp1[1] === bp2[1]; // true
+
+bp1 === bp2; // false
 ```
 
 ## `class Linker`
