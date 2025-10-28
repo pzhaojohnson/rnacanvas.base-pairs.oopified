@@ -41,7 +41,20 @@ export class BasePair<Nucleobase> {
     return this.includes(b1) && this.includes(b2);
   }
 
+  /**
+   * Returns true if this base-pair equals the specified base-pair
+   * (i.e., they both pair the same two bases).
+   */
+  equals(bp: BasePair<Nucleobase> | BasePairTuple<Nucleobase>): boolean {
+    return (
+      (this[0] === bp[0] && this[1] === bp[1])
+      || (this[0] === bp[1] && this[1] === bp[0])
+    );
+  }
+
   deepCopy(): BasePair<Nucleobase> {
     return new BasePair(this.firstBase, this.secondBase);
   }
 }
+
+type BasePairTuple<Nucleobase> = [Nucleobase, Nucleobase];

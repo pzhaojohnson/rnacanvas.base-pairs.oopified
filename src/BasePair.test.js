@@ -71,6 +71,29 @@ describe('BasePair class', () => {
     expect(bp.includesBoth(new NucleobaseMock(), secondBase)).toBe(false);
   });
 
+  test('`equals()`', () => {
+    let b1 = new NucleobaseMock();
+    let b2 = new NucleobaseMock();
+
+    let bp = new BasePair(b1, b2);
+
+    expect(bp.equals(new BasePair(b1, b2))).toBe(true);
+    expect(bp.equals(new BasePair(b2, b1))).toBe(true);
+
+    expect(bp.equals([b1, b2])).toBe(true);
+    expect(bp.equals([b2, b1])).toBe(true);
+
+    expect(bp.equals(new BasePair(b1, new NucleobaseMock()))).toBe(false);
+    expect(bp.equals(new BasePair(new NucleobaseMock(), b2))).toBe(false);
+
+    expect(bp.equals([b1, new NucleobaseMock()])).toBe(false);
+    expect(bp.equals([new NucleobaseMock(), b2])).toBe(false);
+
+    expect(bp.equals(new BasePair(new NucleobaseMock(), new NucleobaseMock()))).toBe(false);
+
+    expect(bp.equals([new NucleobaseMock(), new NucleobaseMock()])).toBe(false);
+  });
+
   test('`deepCopy()`', () => {
     let b1 = new NucleobaseMock();
     let b2 = new NucleobaseMock();
