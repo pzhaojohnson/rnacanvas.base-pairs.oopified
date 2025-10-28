@@ -34,6 +34,22 @@ basePair[1]; // the second base
 [...basePair];
 ```
 
+### `toArray()`
+
+Returns the two bases in the base-pair as a tuple.
+
+(The main benefit of this method over using the spread operator on a base-pair
+is that the return type of this method is a tuple.)
+
+```javascript
+var base1 = {};
+var base2 = {};
+
+var bp = new BasePair(b1, b2);
+
+bp.toArray(); // [b1, b2]
+```
+
 ### `equals()`
 
 Returns true if the base-pair equals the specified base-pair
