@@ -896,6 +896,22 @@ This method will throw if either base of the input base-pair is not present in t
 Note that it is allowed for the input base-pair to not be present in the structure,
 so long as its two bases are present in the structure.
 
+### `numSpannedBases()`
+
+Returns the number of bases spanned by the specified base-pair
+(not including the bases in the base-pair).
+
+```javascript
+// an array of nucleobase objects
+var bases = (new Array(10)).fill().map(() => ({}));
+
+var structure = new RadializableStructure(bases, []);
+
+structure.numSpannedBases([bases[2], bases[7]]); // 4
+structure.numSpannedBases([bases[2], bases[3]]); // 0
+structure.numSpannedBases([bases[2], bases[2]]); // 0
+```
+
 ### `joinedBases()`
 
 Returns the sequence of bases joined by a base-pair
@@ -922,6 +938,22 @@ var structure = new RadializableStructure(bases, []);
 ```
 
 This method will throw if either base in the input base-pair is not present in the structure.
+
+### `numJoinedBases()`
+
+Returns the number of bases joined by the specified base-pair,
+including the bases in the base-pair.
+
+```javascript
+// an array of nucleobase objects
+var bases = (new Array(10)).fill().map(() => ({}));
+
+var structure = new RadializableStructure(bases, []);
+
+structure.numJoinedBases([bases[2], bases[7]]); // 6
+structure.numJoinedBases([bases[0], bases[7]]); // 4
+structure.numJoinedBases([bases[0], bases[9]]); // 2
+```
 
 ### `substructure()`
 
