@@ -47,6 +47,15 @@ describe('BasePair class', () => {
     expect([...bp][1]).toBe(secondBase);
   });
 
+  test('`toArray()`', () => {
+    let b1 = new NucleobaseMock();
+    let b2 = new NucleobaseMock();
+
+    let bp = new BasePair(b1, b2);
+
+    expect(bp.toArray()).toStrictEqual([b1, b2]);
+  });
+
   test('includes method', () => {
     let firstBase = new NucleobaseMock();
     let secondBase = new NucleobaseMock();

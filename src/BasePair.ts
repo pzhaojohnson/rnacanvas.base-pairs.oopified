@@ -25,6 +25,10 @@ export class BasePair<Nucleobase> {
     return [...this.bases].values();
   }
 
+  toArray(): [Nucleobase, Nucleobase] {
+    return [this[0], this[1]];
+  }
+
   /**
    * Returns true if the given base is one of the bases in the base-pair.
    *
